@@ -1,0 +1,243 @@
+@font-face {
+    font-family: 'sansation';
+    src: url('/BasketBaseWeb/fonts/Sansation_Regular.ttf');
+}
+
+*{
+	font-family: sansation;
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+	overflow: hidden;
+}
+
+a{
+	color: #3F51B5;
+}
+
+a:hover{
+	text-decoration: none;
+	color: #7381CE;
+}
+
+#header{
+	background-color: #3F51B5;
+	height: 80px;
+	width: 100%;
+	position: absolute;
+	z-index: 100;
+	border-bottom: 1px solid #7581CC;
+	text-align: center;
+}
+
+#header .img-titulo{
+	float: left;
+	margin-left: 30px;
+}
+
+#header .titulo{
+	font-size: 36px;
+	color: #fff;
+	float: left;
+    width: 75%;
+    margin-top: 15px;
+}
+
+#menu{
+	background-color: #3F51B5;
+	color: #fff;
+	width: 45px;
+	position: absolute;
+	top: 80px;
+	bottom: 100px;
+	z-index: 3;
+	border-right: 1px solid #7581CC;
+}
+
+#menu a{
+	color: #fff;
+	width: 100%;
+	text-decoration: none;
+}
+
+.item-active{
+	background-color: #fff;
+	color: #3F51B5;
+}
+
+.item-active:hover{
+	background-color: #fff !important;
+	cursor: initial !important;
+}
+
+.item-menu{
+	height: 50px;
+	text-align: center;
+	font-size: 22px;
+	padding: 10px;
+	border-bottom: 1px solid #7581CC;
+}
+
+.item-menu:hover{
+	background-color: #7381CE;
+	cursor: pointer;
+}
+
+.item-menu:hover>.tit-item-menu{
+	display: inline-block;
+}
+
+.img-item-menu{
+	float: left;
+}
+
+.tit-item-menu{
+	display: none;
+}
+
+.user-menu, .ajustes{
+	display: none;
+	text-align: center;
+}
+
+.user-image{
+	height: 100px;
+	width: 100px;
+	border-radius: 50px;
+	margin-top: 10px;
+	-webkit-box-shadow: inset 0px 0px 30px 3px rgba(47,47,47,0.75);
+        -moz-box-shadow: inset 0px 0px 30px 3px rgba(47,47,47,0.75);
+			box-shadow: inset 0px 0px 30px 3px rgba(47,47,47,0.75);
+}
+
+.user-name{
+	margin-top: 10px;
+	font-weight: bold;
+	font-size: 16px;
+	height: initial;
+}
+
+.close-session{
+	height: initial;
+	margin-top: 5px;
+	color: #999;
+}
+
+.close-session:hover{
+	color: #FF6666;
+	cursor: pointer;
+}
+
+#container{
+	position: relative;
+	top: 80px;
+	left: 45px;
+	padding: 0px;
+	z-index: 1;
+	background-color: #E5E5FF;
+	overflow: auto;
+	overflow-x: hidden;
+}
+
+#foot{
+	height: 40px;
+	background-color: #222;
+	z-index: 100;
+	position: absolute;
+	bottom: 0px;
+	color: #fff;
+	font-size: 12px;
+}
+
+#foot .cbb{
+	margin-top: 12px;
+	float: left;
+	margin-right: 300px;
+}
+
+#foot .fa{
+	margin-top: 12px;
+	margin-right: 10px;
+	float:right;
+	font-size: 15px;
+	cursor: pointer;
+	color: #fff !important;
+}
+
+#foot .fa-facebook-official:hover{
+	color: #3b5998 !important;
+}
+
+#foot .fa-twitter:hover{
+	color: #3B94D9 !important;
+}
+
+#foot .fa-youtube:hover{
+	color: #e62117 !important;
+}
+
+.item-foot{
+	float: left;
+	margin: 12px;
+	cursor: pointer;
+}
+
+.item-foot:hover{
+	color: #3F51B5;
+}
+
+
+
+
+
+
+/*Media queries para móviles*/
+@media (max-width: 700px) {
+	#header{
+		height: 60px;
+	}
+
+	#header .titulo{
+		display: none;
+	}
+
+	#header .img-titulo{
+		margin: 0;
+		float: none;
+	}
+
+	#menu{
+		top: 60px;
+	}
+
+	#container{
+		top: 60px;
+	}
+
+	.item-menu{
+		height: 35px;
+		font-size: 15px;
+	}
+
+	.img-item-menu{
+		padding-left: 3px;
+	}
+
+	#foot .cbb{
+		margin-right: 0;
+	}
+
+	.item-foot{
+		margin-right: 0px;
+		margin-left: 6px;
+	}
+
+	#foot .cbb{
+		margin-top: 15px;
+		font-size: 10px;
+	}
+
+	#foot .fa-twitter{
+		margin-right: 2px;
+	}
+}

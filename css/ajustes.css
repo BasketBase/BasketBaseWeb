@@ -1,0 +1,11 @@
+.table-responsive{
+	height: initial;
+	text-align: center;
+	width: 90% !important;
+	margin: auto;
+	margin-top: 25px;
+}
+
+.admin, .permiso{
+	display: none;
+}
