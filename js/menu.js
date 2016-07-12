@@ -4,7 +4,6 @@ $(function(){
 	$("#menu").mouseenter(function(){
 		if(mostrarUser){
 			$(".user-menu").show();
-			$(".ajustes").show();
 		}
 
 		$(this).animate({width: "300px"}, 150);
@@ -27,9 +26,9 @@ $(function(){
         url: 	'/BasketBaseWeb/php/logueado.php',
         data: 	"",
         success:function(data){
-        	console.log(data);
         	if(data!=""){
         		$(".login-link").hide();
+        		$(".ajustes").show();
         		$(".user-image").attr("src", "/BasketBaseWeb/img/user/"+data);
         		mostrarUser=true;
         	}
@@ -45,6 +44,7 @@ $(function(){
 	        url: 	'/BasketBaseWeb/php/logout.php',
 	        data: 	"",
 	        success:function(data){
+	        	mostrarUser=false;
 	        	location.reload();
 	        },
 	        error: function(data){

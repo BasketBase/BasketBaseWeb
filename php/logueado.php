@@ -1,9 +1,7 @@
 <?php
 	include "config.php";
 
-	var_dump($_COOKIE["user"]);
-	
-	if(isset($_COOKIE["user"])){
+	if(isset($_COOKIE["user"]) || $_COOKIE["user"]!=null){
 		$login=$_COOKIE["user"];
 		
 		$qry="SELECT * FROM usuarios
@@ -17,9 +15,7 @@
 
 		$imagen="noImage.jpg";
 
-		echo $rowU["imagen"];
-
-		if($rowU["imagen"]!="NULL"){
+		if($rowU["imagen"]!="" || $rowU["imagen"]!=null){
 			$imagen=$rowU["imagen"];
 		}
 
