@@ -34,6 +34,7 @@ $(function(){
 	        		"&pass="+pass+
 	        		"&noClose="+$("#no-close input").prop('checked')
 	        ,success:function(data){
+	        	console.log(data);
 	        	switch(data){
 	        		case "400":
 	        			showError(".pass-error", "#pass");
@@ -43,7 +44,7 @@ $(function(){
 	        		break;
 	        		case "200":
 	        			//window.location.href = "http://dev.basketbaseweb.com";
-	        			window.location.href = "http://localhost:8080/BasketBaseWeb/";
+	        			window.location.href = "http://localhost/BasketBaseWeb/";
 	        		break;
 	        	}
 	        },

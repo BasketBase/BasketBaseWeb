@@ -62,7 +62,7 @@
 
 	function generar_cookie($login){
 		$dias=3650;
-		setcookie("user", $login, time()+(60*60*24*$dias));
+		setcookie("user", $login, time()+(60*60*24*$dias), '/');
 	}
 
 	function ultimo_acceso($login){

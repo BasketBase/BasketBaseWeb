@@ -33,7 +33,7 @@ $(function(){
 	        		break;
 	        		default:
 	        			//window.location.href="http://dev.basketbaseweb.com/pages/login";
-	        			window.location.href = "http://localhost:8080/BasketBaseWeb/pages/login";
+	        			window.location.href = "http://localhost/BasketBaseWeb/pages/login.php";
 	        		break;
 	        	}
 	        },

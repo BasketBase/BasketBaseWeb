@@ -1,5 +1,7 @@
 <?php
 	include "config.php";
+
+	var_dump($_COOKIE["user"]);
 	
 	if(isset($_COOKIE["user"])){
 		$login=$_COOKIE["user"];

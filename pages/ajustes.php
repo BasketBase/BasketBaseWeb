@@ -38,25 +38,25 @@
 					<span class="tit-item-menu">Inicio</span>
 				</div>
 			</a>
-			<a href="/BasketBaseWeb/pages/clubs">
+			<a href="/BasketBaseWeb/pages/clubs.php">
 				<div class="item-menu">
 					<span class="img-item-menu glyphicon glyphicon-asterisk"></span>
 					<span class="tit-item-menu">Clubs</span>
 				</div>
 			</a>
-			<a href="/BasketBaseWeb/pages/calendario">
+			<a href="/BasketBaseWeb/pages/calendario.php">
 				<div class="item-menu">
 					<span class="img-item-menu glyphicon glyphicon-calendar"></span>
 					<span class="tit-item-menu">Calendario</span>
 				</div>
 			</a>
-			<a href="/BasketBaseWeb/pages/servicios">
+			<a href="/BasketBaseWeb/pages/servicios.php">
 				<div class="item-menu">
 					<span class="img-item-menu glyphicon glyphicon-briefcase"></span>
 					<span class="tit-item-menu">Servicios Asociados</span>
 				</div>
 			</a>
-			<a href="/BasketBaseWeb/pages/promos">
+			<a href="/BasketBaseWeb/pages/promos.php">
 				<div class="item-menu">
 					<span class="img-item-menu glyphicon glyphicon-picture"></span>
 					<span class="tit-item-menu">Promociones</span>
@@ -66,7 +66,7 @@
 				<span class="img-item-menu glyphicon glyphicon-cog"></span>
 				<span class="tit-item-menu">Ajustes</span>
 			</div>
-			<a class="login-link" href="/BasketBaseWeb/pages/login">
+			<a class="login-link" href="/BasketBaseWeb/pages/login.php">
 				<div class="item-menu">
 					<span class="img-item-menu glyphicon glyphicon-log-in"></span>
 					<span class="tit-item-menu">Iniciar sesión</span>

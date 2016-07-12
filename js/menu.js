@@ -27,6 +27,7 @@ $(function(){
         url: 	'/BasketBaseWeb/php/logueado.php',
         data: 	"",
         success:function(data){
+        	console.log(data);
         	if(data!=""){
         		$(".login-link").hide();
         		$(".user-image").attr("src", "/BasketBaseWeb/img/user/"+data);
