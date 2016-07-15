@@ -1,0 +1,61 @@
+form label, form input, form div, form button{
+	height: initial;
+}
+
+form{
+	height: initial;
+	width: 60%;
+	margin: auto;
+	margin-top: 80px;
+	margin-bottom: 10px;
+}
+
+form .fa{
+	font-size: 18px;
+}
+
+.epl-form{
+	font-size: 9px;
+	margin-left: 5px;
+	color: #888;
+}
+
+.error{
+	position: relative;
+	font-size: 10px;
+	display: none;
+}
+
+.form-control{
+	border: 2px solid #ccc;
+}
+
+#showName .radio{
+	margin-top: -5px;
+	margin-bottom: 5px;
+}
+
+
+
+
+
+
+
+/*Media queries para móviles*/
+@media (max-width: 700px) {
+	form{
+		width: 75%;
+		margin-top: 25px;
+		margin-right: 60px;
+		margin-left: 60px;
+	}
+
+	.login{
+		width: 100%;
+	}
+
+	form .registro{
+		display: block;
+		margin-top: 20px;
+	}
+}

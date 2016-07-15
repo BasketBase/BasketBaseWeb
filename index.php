@@ -76,8 +76,8 @@
 				<img class="user-image" src="">
 				<div class="user-name">
 					<?php 
-						if(isset($_COOKIE["user"])){
-							echo $_COOKIE["user"]; 
+						if(isset($_COOKIE["showable"])){
+							echo $_COOKIE["showable"]; 
 						}
 						else{
 							echo 'ERROR';

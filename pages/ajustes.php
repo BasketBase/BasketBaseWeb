@@ -76,8 +76,8 @@
 				<img class="user-image" src="">
 				<div class="user-name">
 					<?php 
-						if(isset($_COOKIE["user"])){
-							echo $_COOKIE["user"]; 
+						if(isset($_COOKIE["showable"])){
+							echo $_COOKIE["showable"]; 
 						}
 						else{
 							echo 'ERROR';
@@ -102,7 +102,7 @@
 						<tr>
 							<td></td>
 							<td>
-								<a href="/BasketBaseWeb/pages/editUser">EDITAR</a>
+								<a href="/BasketBaseWeb/pages/ajustes/usuario/editar.php">EDITAR DATOS</a>
 							</td>
 							<td>
 								<a href="/BasketBaseWeb/pages/editPass">CAMBIAR CONTRASEÑA</a>

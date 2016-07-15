@@ -47,9 +47,8 @@
 		$res=mysqli_query($con, $qry) or die ($qry);
 
 		if(mysqli_num_rows($res)>0){
-			if($_POST["noClose"]!="false"){
-				generar_cookie($login);
-			}
+			$name=mysqli_fetch_assoc($res)["nombre"];
+			generar_cookie($login, $name);
 
 			ultimo_acceso($login);
 
@@ -60,9 +59,15 @@
 		}
 	}
 
-	function generar_cookie($login){
-		$dias=3650;
+	function generar_cookie($login, $name){
+		$dias=1/24;
+
+		if($_POST["noClose"]!="false"){
+			$dias=3650;
+		}
+
 		setcookie("user", $login, time()+(60*60*24*$dias), '/');
+		setcookie("showable", $name, time()+(60*60*24*$dias), '/');
 	}
 
 	function ultimo_acceso($login){
