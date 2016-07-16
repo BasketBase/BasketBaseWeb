@@ -30,11 +30,12 @@
 		break;
 	}
 
-	echo $tipo;
+	$imagen="";
 
 	if(!isdir($ruta)){
 		mkdir($ruta);
 		move_uploaded_file($_POST['ruta'], $ruta."0".$tipo);
+		$imagen='0'.$tipo;
 	}
 	else{
 		$filecount = 0;
@@ -45,5 +46,12 @@
 		}
 
 		move_uploaded_file($_POST['ruta'], $ruta.$filecount.$tipo);
+		$imagen=$filecount.$tipo;
 	}
+
+	$qry="UPDATE usuarios
+		  SET imagen='".$imagen."'
+		  WHERE dni = '".$dni."'";
+
+	$res=mysqli_query($con, $qry) or die ($qry);
 ?>

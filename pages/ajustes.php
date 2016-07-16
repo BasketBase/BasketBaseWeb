@@ -205,9 +205,16 @@
 							$ruta=$ruta.$dni."/";
 
 							foreach(glob($ruta.'*.*') as $file) {
-								echo '<div class="imgPerfil col-md-3 col-sm-4 col-xs-6">
+								if(!end(glob($ruta.'*.*'))){
+									echo '<div class="imgPerfil col-md-3 col-sm-4 col-xs-6">
 										  <img src="'.$ruta.$file.'">
 									  </div>';
+								}
+								else{
+									echo '<div class="imgPerfil col-md-3 col-sm-4 col-xs-6" actual>
+										  <img src="'.$ruta.$file.'">
+									  </div>';
+								}
 							}
 						?>
 						<div class="imgPerfil col-md-3 col-sm-4 col-xs-6">
