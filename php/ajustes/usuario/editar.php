@@ -1,5 +1,5 @@
 <?php
-	include "config.php";
+	include "../../config.php";
 
 	$dni=$_POST["dni"];
 	$nick=utf8_decode($_POST["nick"]);
@@ -19,13 +19,10 @@
 				  WHERE dni='".$dni."'";
 
 			$res=mysqli_query($con, $qry) or die("Error en el servidor. Inténtelo más tarde.");
-			echo "UPDATE usuarios 
-				  SET nick='".$nick."',
-				  	  email='".$email."',
-				  	  nombre='".$nombre."',
-				  	  ape1='".$ape1."',
-				  	  ape2='".$ape2."'
-				  WHERE dni='".$dni."'";
+
+			$dias=3650;
+			setcookie("showable", $nombre, time()+(60*60*24*$dias),"/");
+
 			$to      = 	$email;
 			$subject = 	'Sus datos han sido editados.';
 			$message = '<html>
@@ -57,7 +54,7 @@
 
 
 	function buscar_campo($campo, $valor, $dni){
-		include "config.php";
+		include "../../config.php";
 		
 		$qry="SELECT ".$campo." FROM usuarios WHERE ".$campo." = '".$valor."' AND dni!='".$dni."'";
 		$res=mysqli_query($con, $qry) or die ($qry);

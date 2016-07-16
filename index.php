@@ -77,7 +77,7 @@
 				<div class="user-name">
 					<?php 
 						if(isset($_COOKIE["showable"])){
-							echo $_COOKIE["showable"]; 
+							echo $_COOKIE["showable"];
 						}
 						else{
 							echo 'ERROR';

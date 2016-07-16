@@ -1,14 +1,15 @@
-var nick, email, nombre, ape1, ape2, pass, repPass;
+var dni, nick, email, nombre, ape1, ape2;
 
 $(function(){
 	$("#auth_nick").focus();
+
+	iniciarDatos();
 
 	preEdicion();
 
 	$(".edita").click(function(event){
 		event.preventDefault();
 
-		dni=$("#auth_dni").val().trim();
 		ape2=$("#auth_ape2").val().trim();
 
 		$.ajax({
@@ -45,6 +46,17 @@ $(function(){
 
 
 
+
+
+
+function iniciarDatos(){
+	dni=$("#auth_dni").val().trim();
+	nick=$("#auth_nick").val().trim();
+	email=$("#auth_email").val().trim();
+	nombre=$("#auth_nombre").val().trim();
+	ape1=$("#auth_ape1").val().trim();
+	ape2=$("#auth_ape2").val().trim();
+}
 
 function preEdicion(){
 	//Control del nick
