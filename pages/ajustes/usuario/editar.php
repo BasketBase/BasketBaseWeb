@@ -94,8 +94,14 @@
 		<div id="container" class="col-xs-12">
 			<?php
 				include "../../../php/config.php";
-
-				$login=$_COOKIE["user"];
+				$login="";
+				if(isset($_COOKIE["user"])){
+					$login=$_COOKIE["user"];
+				}
+				else{
+					header("Location: http://localhost/errors/403.html");
+					exit();
+				}
 
 				$consulta="SELECT * FROM usuarios
 						   WHERE dni = '".$login."'
@@ -201,7 +207,8 @@
 				}
 
 				else{
-					header("HTTP/1.0 403 Not Authorized");
+					header("Location: http://localhost/errors/500.html");
+					exit();
 				}
 			?>
 		</div>

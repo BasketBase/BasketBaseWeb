@@ -9,3 +9,39 @@
 .admin, .permiso{
 	display: none;
 }
+
+.modal *{
+	height: auto;
+}
+
+.imgPerfil, .imgPerfil img{
+	height: 100px;
+}
+
+.imgPerfil{
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+.imgPerfil img:hover{
+	padding: 2px;
+	border: 4px solid #3F51B5;
+	cursor: pointer;
+}
+
+.imgPerfil[actual] img{
+	padding: 1px;
+	border: 2px solid #7581CC;
+	cursor: auto;
+}
+
+.modal .fa-plus{
+	font-size: 50px;
+	margin-top: 25px;
+	color: #3F51B5;
+}
+
+.modal .fa-plus:hover{
+	color: #7581CC;
+	cursor: pointer;
+}

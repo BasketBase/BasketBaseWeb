@@ -22,6 +22,7 @@
 
 		<!-- Custom JS -->
 		<script type="text/javascript" src="/BasketBaseWeb/js/menu.js"></script>
+		<script type="text/javascript" src="/BasketBaseWeb/js/ajustes/usuario/imagen.js"></script>
 	</head>
 	<body>
 		<div id="header" class="col-xs-12">
@@ -105,10 +106,10 @@
 								<a href="/BasketBaseWeb/pages/ajustes/usuario/editar.php">EDITAR DATOS</a>
 							</td>
 							<td>
-								<a href="/BasketBaseWeb/pages/editPass">CAMBIAR CONTRASEÑA</a>
+								<a href="/BasketBaseWeb/pages/ajustes/usuario/contrasena.php">CAMBIAR CONTRASEÑA</a>
 							</td>
 							<td>
-								<a href="/BasketBaseWeb/pages/addImage">AÑADIR IMAGEN</a>
+								<a style="cursor: pointer" class="cImg">CAMBIAR IMAGEN</a>
 							</td>
 						</tr>
 					</tbody>
@@ -177,6 +178,49 @@
 			<a href="https://twitter.com/basketbaseapp" target="_blank"><span class="fa fa-twitter"></span></a>
 			<a href="https://facebook.com/basketbase" target="_blank"><span class="fa fa-facebook-official"></span></a>
 			<a href="https://www.youtube.com/channel/UCBXOEDHVG8lZKQxLU41Di3w" target="_blank"><span class="fa fa-youtube"></span></a>
+		</div>
+
+		<!--**********************   MODAL IMG   ************************-->
+		<div class="modal fade" tabindex="-1" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title">Galería de imágenes de perfil</h4>
+					</div>
+					<div class="modal-body">
+						<?php
+							include "../php/config.php";
+							$ruta="/BasketBaseWeb/img/user/";
+							$login=$_COOKIE["user"];
+							$qry="SELECT dni FROM usuarios
+												   WHERE dni = '".$login."'
+												   OR 	 nick = '".$login."'
+												   OR 	 email = '".$login."'";
+
+							$res=mysqli_query($con, $qry) or die ($qry);
+							$dni=mysqli_fetch_assoc($res)["dni"];
+							$ruta=$ruta.$dni."/";
+
+							foreach(glob($ruta.'*.*') as $file) {
+								echo '<div class="imgPerfil col-md-3 col-sm-4 col-xs-6">
+										  <img src="'.$ruta.$file.'">
+									  </div>';
+							}
+						?>
+						<div class="imgPerfil col-md-3 col-sm-4 col-xs-6">
+							<span class="subir fa fa-plus"  aria-hidden="true"></span>
+							<input type="file" id="upload" name="img" style="display:none">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+						<button type="button" class="btn btn-primary selec">Seleccionar</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
