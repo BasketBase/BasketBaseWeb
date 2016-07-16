@@ -168,30 +168,30 @@
 			        	   			value="'.$row["ape2"].'" maxlength="150">';
 					?>
 				</div>
-				<!--<div id="showName" class="form-group col-md-6 col-xs-12">
-					<label class="apes" for="apes">
+				<div id="showName" class="form-group col-md-6 col-xs-12">
+					<label class="showName" for="showName">
 						<span class="fa fa-eye" style="margin-right: 10px"></span>
 						<span>Nombre a mostrar</span>
 					</label>
 					<div class="radio">
 					  <label>
-					    <input type="radio" name="opciones" id="opciones_1" value="opcion_1" checked>
+					    <input type="radio" name="opt" id="opt1" value="1">
 					    Nick
 					  </label>
 					</div>
 					<div class="radio">
 					  <label>
-					    <input type="radio" name="opciones" id="opciones_1" value="opcion_1" checked>
+					    <input type="radio" name="opt" id="opt2" value="2" checked>
 					    Nombre
 					  </label>
 					</div>
 					<div class="radio">
 					  <label>
-					    <input type="radio" name="opciones" id="opciones_2" value="opcion_2">
+					    <input type="radio" name="opt" id="opt3" value="3">
 					    Nombre y apellidos
 					  </label>
 					</div>
-				</div>-->
+				</div>
 				<span class="error campo-error" style="color: red"></span>
 				<span class="error bd-error" style="color: red">Ha ocurrido un error en el servidor. Vuelva a intentarlo más tarde. Disculpe las molestias.</span>
 				<button type="submit" class="btn btn-warning edita">Cambiar</button>

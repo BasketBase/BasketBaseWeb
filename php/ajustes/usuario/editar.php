@@ -7,6 +7,7 @@
 	$nombre=utf8_decode($_POST["nombre"]);
 	$ape1=utf8_decode($_POST["ape1"]);
 	$ape2=utf8_decode($_POST["ape2"]);
+	$show=$_POST["show"];
 
 	if(buscar_campo("nick", $nick, $dni)!=false){
 		if(buscar_campo("email", $email, $dni)!=false){
@@ -21,7 +22,17 @@
 			$res=mysqli_query($con, $qry) or die("Error en el servidor. Inténtelo más tarde.");
 
 			$dias=3650;
-			setcookie("showable", $nombre, time()+(60*60*24*$dias),"/");
+			switch($show){
+				case 1:
+					setcookie("showable", $nick, time()+(60*60*24*$dias),"/");
+				break;
+				case 2:
+					setcookie("showable", $nombre, time()+(60*60*24*$dias),"/");
+				break;
+				case 3:
+					setcookie("showable", $nombre.' '.$ape1.' '.$ape2, time()+(60*60*24*$dias),"/");
+				break;
+			}
 
 			$to      = 	$email;
 			$subject = 	'Sus datos han sido editados.';

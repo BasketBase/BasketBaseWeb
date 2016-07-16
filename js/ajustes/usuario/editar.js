@@ -1,4 +1,4 @@
-var dni, nick, email, nombre, ape1, ape2;
+var dni, nick, email, nombre, ape1, ape2, show;
 
 $(function(){
 	$("#auth_nick").focus();
@@ -12,6 +12,8 @@ $(function(){
 
 		ape2=$("#auth_ape2").val().trim();
 
+		show=$("#showName .radio input:checked").val();
+
 		$.ajax({
 	        type: 	'POST',
 	        url: 	'/BasketBaseWeb/php/ajustes/usuario/editar.php',
@@ -20,9 +22,9 @@ $(function(){
 	        		"&email="+email+
 	        		"&nombre="+nombre+
 	        		"&ape1="+ape1+
-	        		"&ape2="+ape2
+	        		"&ape2="+ape2+
+	        		"&show="+show
 	        ,success:function(data){
-	        	console.log(data);
 	        	switch(data){
 	        		case "nick":
 	        			errorInsert(data, nick);
@@ -31,7 +33,7 @@ $(function(){
 	        			errorInsert(data, email);
 	        		break;
 	        		default:
-	        			//window.location.href="http://dev.basketbaseweb.com/pages/login";
+	        			//window.location.href="http://dev.basketbaseweb.com/pages/ajustes";
 	        			window.location.href = "http://localhost/BasketBaseWeb/pages/ajustes.php";
 	        		break;
 	        	}
