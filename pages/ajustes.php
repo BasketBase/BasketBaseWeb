@@ -21,6 +21,7 @@
 		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/ajustes.css" />
 
 		<!-- Custom JS -->
+		<script type="text/javascript" src="/BasketBaseWeb/js/BasketBaseWeb.js"></script>
 		<script type="text/javascript" src="/BasketBaseWeb/js/menu.js"></script>
 		<script type="text/javascript" src="/BasketBaseWeb/js/ajustes/usuario/imagen.js"></script>
 	</head>
@@ -127,13 +128,13 @@
 						<tr>
 							<td></td>
 							<td class="perClub">
-								<a href="/BasketBaseWeb/pages/adminClub">CLUB</a>
+								<a href="/BasketBaseWeb/pages/ajustes/club.php">CLUB</a>
 							</td>
 							<td class="perPatro">
-								<a href="/BasketBaseWeb/pages/adminPatro">SERVICIO</a>
+								<a href="/BasketBaseWeb/pages/ajustes/servicio.php">SERVICIO</a>
 							</td>
 							<td class="perEve">
-								<a href="/BasketBaseWeb/pages/adminEvento">EVENTO</a>
+								<a href="/BasketBaseWeb/pages/ajustes/evento.php">EVENTO</a>
 							</td>
 						</tr>
 						<tr class="admin">

@@ -18,12 +18,12 @@
 
 		<!--Custom CSS -->
 		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/styles.css" />
-		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/ajustes/usuario/contrasena.css" />
+		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/ajustes/club/lista.css" />
 
 		<!-- Custom JS -->
 		<script type="text/javascript" src="/BasketBaseWeb/js/BasketBaseWeb.js"></script>
 		<script type="text/javascript" src="/BasketBaseWeb/js/menu.js"></script>
-		<script type="text/javascript" src="/BasketBaseWeb/js/ajustes/usuario/contrasena.js"></script>
+		<script type="text/javascript" src="/BasketBaseWeb/js/ajustes/club/lista.js"></script>
 	</head>
 	<body>
 		<div id="header" class="col-xs-12">
@@ -64,10 +64,12 @@
 					<span class="tit-item-menu">Promociones</span>
 				</div>
 			</a>
-			<div class="item-menu ajustes item-active">
-				<span class="img-item-menu glyphicon glyphicon-cog"></span>
-				<span class="tit-item-menu">Ajustes</span>
-			</div>
+			<a href="/BasketBaseWeb/pages/promos.php">
+				<div class="item-menu ajustes">
+					<span class="img-item-menu glyphicon glyphicon-cog"></span>
+					<span class="tit-item-menu">Ajustes</span>
+				</div>
+			</a>
 			<a class="login-link" href="/BasketBaseWeb/pages/login.php">
 				<div class="item-menu">
 					<span class="img-item-menu glyphicon glyphicon-log-in"></span>
@@ -112,28 +114,56 @@
 				$row=mysqli_fetch_assoc(mysqli_query($con, $consulta));
 
 				if($row!=null){
-			?>
-			<form role="form">
-				<div id="pass" class="form-group col-xs-12">
-					<label class="pass" for="pass">
-						<span class="fa fa-lock" style="margin-right: 10px"></span>
-						<span>Contraseña</span>
-						<span class="error pass-format">Debe contener al menos un número, una letra y 6 caracteres.</span>
-						<span class="error pass-repeat">Las contraseñas no coinciden.</span>
-						<span class="error pass-confirm">Esta no es tu contraseña.</span>
-					</label>
-					<input type="password" class="form-control" id="auth_pass" 
-					       placeholder="Introduce tu contraseña actual" maxlength="15">
-			       <input type="password" class="form-control" id="auth_repPass" 
-			       		   placeholder="Repite tu contraseña nueva" maxlength="15">
-				</div>
-				<span class="error campo-error" style="color: red"></span>
-				<span class="error bd-error" style="color: red">Ha ocurrido un error en el servidor. Vuelva a intentarlo más tarde. Disculpe las molestias.</span>
-				<button type="submit" class="btn btn-primary sigue">Seguir</button>
-				<button type="submit" class="btn btn-warning editPass">Cambiar</button>
-			</form>
-			<?php
+					echo "<a href='../club.php' style='display: block; text-align:center; font-size:18px'>/</a>";
 
+					$consulta="SELECT * FROM clubs WHERE cp=".$_GET["prov"];
+
+					$res=mysqli_query($con, $consulta);
+
+					if(mysqli_num_rows($res)>0){
+
+			?>
+				<input type="text" id="seeker" placeholder="Busca un club..."/>
+				<table class="table table-responsive table-hover results">
+					<tbody>
+						
+					</tbody>
+				</table>
+				<div id="contClubs">
+					<?php
+						while($row=mysqli_fetch_array($res)){
+							echo 	"<div class='
+											clubsItem 
+											col-xs-offset-2
+											col-sm-offset-1 
+											col-md-2
+											col-sm-3
+											col-xs-4'>
+												<a href='/BasketBaseWeb/pages/ajustes/equipo/lista.php?club=".$row["codigo"]."'>".utf8_encode($row["nombre"])."</a>
+									</div>";
+						};
+					?>
+				</div>
+			<?php
+					}
+					else{
+						echo '<input type="text" id="seeker" placeholder="Busca un club..." disabled/>';
+					}
+			?>
+				<div id="contClubs">
+					<a class='
+							clubsItem
+							subir
+							col-xs-offset-2
+							col-sm-offset-1 
+							col-md-2
+							col-sm-3
+							col-xs-4' 
+						href="/BasketBaseWeb/pages/ajustes/club/anadir.php">
+						<span class="fa fa-plus"  aria-hidden="true"></span>
+					</a>
+				</div>
+			<?php
 				}
 
 				else{

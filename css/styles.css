@@ -139,6 +139,10 @@ a:hover{
 	overflow-x: hidden;
 }
 
+#container *{
+	height: auto;
+}
+
 #foot{
 	height: 40px;
 	background-color: #222;
@@ -185,6 +189,65 @@ a:hover{
 .item-foot:hover{
 	color: #3F51B5;
 }
+
+/*Estilos de buscador*/
+#seeker, .table.results{
+	width: 50%;
+	margin-left: 25%;
+}
+
+#seeker{
+	height: 30px;
+	font-size: 15px;
+	margin-top: 20px;
+}
+
+.table.results{
+	display: none;
+	position: absolute;
+	z-index: 100;
+	background-color: #fff;
+	border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.results td{
+	cursor: pointer;
+}
+
+/*Estilos de formularios*/
+form{
+	height: initial;
+	width: 60%;
+	margin: auto;
+	margin-top: 80px;
+	margin-bottom: 10px;
+}
+
+form .fa{
+	font-size: 18px;
+}
+
+.epl-form{
+	font-size: 9px;
+	margin-left: 5px;
+	color: #888;
+}
+
+.error{
+	position: relative;
+	font-size: 10px;
+	display: none;
+}
+
+.form-control{
+	border: 2px solid #ccc;
+}
+
+
+
+
+
+
 
 
 

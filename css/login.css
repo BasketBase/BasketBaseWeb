@@ -1,15 +1,3 @@
-form label, form input, form div, form button{
-	height: initial;
-}
-
-form{
-	height: initial;
-	width: 60%;
-	margin: auto;
-	margin-top: 80px;
-	margin-bottom: 10px;
-}
-
 .login{
 	width: 100px;
 	background-color: #3F51B5;
@@ -21,23 +9,9 @@ form{
 	color: #fff;
 }
 
-form .fa{
-	font-size: 18px;
-}
-
 form .registro{
 	font-size: 15px;
 	margin-left: 15px;
-}
-
-.form-control{
-	border: 2px solid #ccc;
-}
-
-.error{
-	position: relative;
-	font-size: 10px;
-	display: none;
 }
 
 

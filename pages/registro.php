@@ -21,6 +21,7 @@
 		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/registro.css" />
 
 		<!-- Custom JS -->
+		<script type="text/javascript" src="/BasketBaseWeb/js/BasketBaseWeb.js"></script>
 		<script type="text/javascript" src="/BasketBaseWeb/js/menu.js"></script>
 		<script type="text/javascript" src="/BasketBaseWeb/js/registro.js"></script>
 	</head>
