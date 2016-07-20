@@ -29,7 +29,7 @@ $(function(){
         img.onload = function() {
             var width = img.naturalWidth;
 
-            if(width>600){
+            if(width>100){
             	console.log("La imagen no puede tener mas de 100px de ancho para que se visualice bien. Disculpe las molestias.");
             }
             else{

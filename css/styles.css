@@ -243,6 +243,21 @@ form .fa{
 	border: 2px solid #ccc;
 }
 
+/*Breadcrumbs*/
+
+.breadcrumbs{
+	width: 100%;
+	display: block;
+	text-align: center;
+}
+
+.breadcrumbs *{
+	display: inline-block;
+	font-size: 17px;
+}
+
+
+
 
 
 

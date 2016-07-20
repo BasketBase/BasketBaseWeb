@@ -18,12 +18,12 @@
 
 		<!--Custom CSS -->
 		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/styles.css" />
-		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/ajustes/club/lista.css" />
+		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/ajustes/club/anadir.css" />
 
 		<!-- Custom JS -->
 		<script type="text/javascript" src="/BasketBaseWeb/js/BasketBaseWeb.js"></script>
 		<script type="text/javascript" src="/BasketBaseWeb/js/menu.js"></script>
-		<script type="text/javascript" src="/BasketBaseWeb/js/ajustes/club/lista.js"></script>
+		<script type="text/javascript" src="/BasketBaseWeb/js/ajustes/club/anadir.js"></script>
 	</head>
 	<body>
 		<div id="header" class="col-xs-12">
@@ -114,55 +114,68 @@
 				$row=mysqli_fetch_assoc(mysqli_query($con, $consulta));
 
 				if($row!=null){
-					$consulta="SELECT * FROM provincias WHERE cp = ".$_GET['prov'];
-
-					$row=mysqli_fetch_assoc(mysqli_query($con, $consulta));
-
-					echo "<div class='breadcrumbs'><a href='../club.php'>/</a><span>".utf8_encode($row['nombre'])."</span></div>";
-
-					$consulta="SELECT * FROM clubs WHERE cp=".$_GET["prov"];
-
-					$res=mysqli_query($con, $consulta);
-
-					if(mysqli_num_rows($res)>0){
-						echo '<input type="text" id="seeker" placeholder="Busca un club..."/>';
-					}
-					else{
-						echo '<input type="text" id="seeker" placeholder="Busca un club..." disabled/>';
-					}
 			?>
-				<table class="table table-responsive table-hover results">
-					<tbody>
-						
-					</tbody>
-				</table>
-				<div id="contClubs">
-					<?php
-						while($row=mysqli_fetch_array($res)){
-							echo 	"<div class='
-											clubsItem 
-											col-xs-offset-2
-											col-sm-offset-1 
-											col-md-2
-											col-sm-3
-											col-xs-4'>
-												<a href='/BasketBaseWeb/pages/ajustes/equipo/lista.php?club=".$row["codigo"]."'>".utf8_encode($row["nombre"])."</a>
-									</div>";
-						};
-
-						echo "<a class='
-									clubsItem
-									subir
-									col-xs-offset-2
-									col-sm-offset-1 
-									col-md-2
-									col-sm-3
-									col-xs-4'
-								href='/BasketBaseWeb/pages/ajustes/club/anadir.php?prov=".$_GET["prov"]."'>
-								<span class='fa fa-plus'  aria-hidden='true'></span>
-							</a>";
-					?>
-				</div>
+				<form role="form">
+					<div id="nombre" class="form-group col-md-6 col-xs-12">
+						<label class="nombre" for="nombre">
+							<span class="fa fa-user" style="margin-right: 10px"></span>
+							<span>* Nombre</span>
+							<span class="error nombre-lon">No puede quedar vacío.</span>
+						</label>
+						<input type="text" class="form-control" id="auth_nombre"
+						       placeholder="Introduce el nombre" maxlength="100">
+					</div>
+					<div id="url" class="form-group col-md-6 col-xs-12">
+						<label class="url" for="url">
+							<span class="fa fa-globe" style="margin-right: 10px"></span>
+							<span>Dirección web</span>
+						</label>
+						<input type="text" class="form-control" id="auth_url"
+						       placeholder="Introduce el sitio web" maxlength="255">
+					</div>
+					<div id="facebook" class="form-group col-md-6 col-xs-12">
+						<label class="facebook" for="facebook">
+							<span class="fa fa-facebook-official" style="margin-right: 10px"></span>
+							<span>Facebook</span>
+						</label>
+						<input type="text" class="form-control" id="auth_facebook"
+						       placeholder="Introduce la url de facebook" maxlength="255">
+					</div>
+					<div id="direccion" class="form-group col-md-6 col-xs-12">
+						<label class="direccion" for="direccion">
+							<span class="fa fa-street-view" style="margin-right: 10px"></span>
+							<span>Dirección</span>
+						</label>
+						<input type="text" class="form-control" id="auth_direccion"
+						       placeholder="Introduce la direccion" maxlength="200">
+					</div>
+					<div id="telefono" class="form-group col-md-6 col-xs-12">
+						<label class="telefono" for="telefono">
+							<span class="fa fa-phone" style="margin-right: 10px"></span>
+							<span>Teléfono</span>
+						</label>
+						<input type="text" class="form-control" id="auth_telefono"
+						       placeholder="Introduce el telefono" maxlength="12">
+					</div>
+					<div id="email" class="form-group col-md-6 col-xs-12">
+						<label class="email" for="email">
+							<span class="fa fa-envelope" style="margin-right: 10px"></span>
+							<span>Email</span>
+						</label>
+						<input type="email" class="form-control" id="auth_email"
+						       placeholder="Introduce el email" maxlength="200">
+					</div>
+					<div id="logo" class="form-group col-xs-12">
+						<label class="logo" for="logo">
+							<span class="fa fa-image" style="margin-right: 10px"></span>
+							<span>Logo</span>
+						</label>
+						<input name="logo" type="file" class="form-control" id="auth_logo"/>
+					</div>
+					<span class="error campo-error" style="color: red"></span>
+					<span class="error bd-error" style="color: red">Ha ocurrido un error en el servidor. Vuelva a intentarlo más tarde. Disculpe las molestias.</span>
+					<button type="submit" class="btn btn-warning altaClub" disabled>Registrar club</button>
+				</form>
 			<?php
 				}
 
