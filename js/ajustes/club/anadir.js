@@ -1,4 +1,4 @@
-var cp, nombre, url, facebook, direccion, telefono, email, rutaLogo, tipoLogo;
+var cp, nombre, url, facebook, direccion, telefono, email, rutaLogo, tipoLogo, obj_file;
 
 $(function(){
 	cp= location.search.split('prov=')[1]
@@ -34,17 +34,31 @@ $(function(){
 	        		"&direccion="+direccion+
 	        		"&telefono="+telefono+
 	        		"&email="+email+
-	        		"&rutaLogo="+rutaLogo+
 	        		"&tipoLogo="+tipoLogo
 	        ,success:function(data){
-	        	console.log(data);
 	        	switch(data){
 	        		case "nombre":
 	        			errorInsert(data, nombre);
 	        		break;
 	        		default:
-	        			//window.location.href = "http://dev.basketbaseweb.com/pages/ajustes/club/lista.php?prov="+cp;
-	        			window.location.href = "http://localhost/BasketBaseWeb/pages/ajustes/club/lista.php?prov="+cp;
+	        			obj_file.append("nombre", nombre);
+	        			$.ajax({
+					        type: 	'POST',
+					        url: 	'/BasketBaseWeb/php/ajustes/club/logo.php',
+					        dataType: 'text',
+			                cache: false,
+			                contentType: false,
+			                processData: false,
+					        data: 	obj_file,
+					        success:function(data){
+					        	//window.location.href = "http://dev.basketbaseweb.com/pages/ajustes/club/lista.php?prov="+cp;
+					        	window.location.href = "http://localhost/BasketBaseWeb/pages/ajustes/club/lista.php?prov="+cp;
+
+					        },
+					        error: function(data){
+					        	console.log(data);
+					        }
+					    });
 	        		break;
 	        	};
 	        },
@@ -55,6 +69,10 @@ $(function(){
 	});
 
 	$("#auth_logo").change(function(){
+		var file_data = $(this).prop("files")[0];
+		obj_file = new FormData();                  
+    	obj_file.append("file", file_data);
+
 		var tmppath = URL.createObjectURL($(this)[0].files[0]);
 		var file=$(this)[0].files[0];
 		var tipo=["image/png", "image/jpg", "image/jpeg"];

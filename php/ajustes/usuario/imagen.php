@@ -14,11 +14,11 @@
 
 	$dni=mysqli_fetch_assoc($res)["dni"];
 
-	$ruta=$ruta.$dni."/";
+	$ruta=$_SERVER['DOCUMENT_ROOT'].$ruta.$dni."/";
 
 	$tipo="";
 
-	switch($_POST["tipo"]){
+	switch($_FILES["file"]["type"]){
 		case "image/png":
 			$tipo=".png";
 		break;
@@ -32,9 +32,9 @@
 
 	$imagen="";
 
-	if(!isdir($ruta)){
+	if(!is_dir($ruta)){
 		mkdir($ruta);
-		move_uploaded_file($_POST['ruta'], $ruta."0".$tipo);
+		move_uploaded_file($_FILES["file"]["tmp_name"], $ruta."0".$tipo);
 		$imagen='0'.$tipo;
 	}
 	else{
@@ -45,7 +45,7 @@
 			$filecount = count($files);
 		}
 
-		move_uploaded_file($_POST['ruta'], $ruta.$filecount.$tipo);
+		move_uploaded_file($_FILES["file"]["tmp_name"], $ruta.$filecount.$tipo);
 		$imagen=$filecount.$tipo;
 	}
 

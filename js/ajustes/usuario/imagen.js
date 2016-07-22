@@ -19,7 +19,10 @@ $(function(){
 	});
 
 	$("#upload").change(function(){
-		var tmppath = URL.createObjectURL($(this)[0].files[0]);
+		var file_data = $(this).prop("files")[0];
+		obj_file = new FormData();                  
+    	obj_file.append("file", file_data);
+
 		var file=$(this)[0].files[0];
 		var tipo=["image/png", "image/jpg", "image/jpeg"];
 
@@ -47,27 +50,35 @@ $(function(){
             		$.ajax({
 				        type: 	'POST',
 				        url: 	'/BasketBaseWeb/php/ajustes/usuario/imagen.php',
-				        data: 	"ruta="+tmppath+
-				        		"&tipo="+file.type
-				        ,success:function(data){
-				        	//window.location.href = "http://dev.basketbaseweb.com/ajustes";
-				        	window.location.href = "http://localhost/BasketBaseWeb/ajustes.php";
+				        dataType: 'text',
+		                cache: false,
+		                contentType: false,
+		                processData: false,
+				        data: 	obj_file,
+				        success:function(data){
+				        	//window.location.href = "http://dev.basketbaseweb.com/pages/ajustes.php";
+				        	window.location.href = "http://localhost/BasketBaseWeb/pages/ajustes.php";
 				        },
 				        error: function(data){
 				        	switch(data.status){
 				        		case 400:
+				        			//window.location.href = "http://dev.basketbaseweb.com/errors/400";
 				        			window.location.href = "http://localhost/BasketBaseWeb/errors/400.php";
 				        		break;
 				        		case 401:
+				        			//window.location.href = "http://dev.basketbaseweb.com/errors/401";
 				        			window.location.href = "http://localhost/BasketBaseWeb/errors/401.php";
 				        		break;
 				        		case 403:
+				        			//window.location.href = "http://dev.basketbaseweb.com/errors/403";
 				        			window.location.href = "http://localhost/BasketBaseWeb/errors/403.php";
 				        		break;
 				        		case 404:
+				        			//window.location.href = "http://dev.basketbaseweb.com/errors/404";
 				        			window.location.href = "http://localhost/BasketBaseWeb/errors/404.php";
 				        		break;
 				        		case 500:
+				        			//window.location.href = "http://dev.basketbaseweb.com/errors/500";
 				        			window.location.href = "http://localhost/BasketBaseWeb/errors/500.php";
 				        		break;
 				        	}

@@ -26,30 +26,32 @@
 
 		$logoArray=explode(" ", $nombre);
 		$logo=implode("_", $logoArray);
-		move_uploaded_file($_POST['rutaLogo'], "/BasketBaseWeb/img/clubs/".$logo.$tipo);
+
 		$qry="INSERT INTO clubs (nombre, provincia, logo, url, facebook, direccion, telefono, email) 
 		VALUES ('".$nombre."', ".$cp.", '".$logo.$tipo."', '".$url."', '".$facebook."', '".$direccion."', '".$telefono."', '".$email."')";
 
 		$res=mysqli_query($con, $qry) or die("Error en el servidor. Inténtelo más tarde.");
 
-		/*$to      = 	$email;
-		$subject = 	'¡Bienvenido a Basket Base!';
-		$message = '<html>
-						<head>
-							<title>Basket Base</title>
-						</head>
-						<body>
-							<div>
-								'.$nombre.' bienvenido a la comunidad de Basket Base.
-								<br/><br/>
-							</div>
-						</body>
-					</html>';
-		$headers = "From: Basket Base <soporte@basketbaseweb.com>\r\n";
-		$headers .= "MIME-Version: 1.0\r\n";
- 		$headers .= "Content-type: text/html\r\n";
+		if($email!=""){
+			$to      = 	$email;
+			$subject = 	'¡Bienvenido a Basket Base!';
+			$message = '<html>
+							<head>
+								<title>Basket Base</title>
+							</head>
+							<body>
+								<div>
+									'.$nombre.' bienvenido a la comunidad de Basket Base.
+									<br/><br/>
+								</div>
+							</body>
+						</html>';
+			$headers = "From: Basket Base <soporte@basketbaseweb.com>\r\n";
+			$headers .= "MIME-Version: 1.0\r\n";
+	 		$headers .= "Content-type: text/html\r\n";
 
-		mail($to, $subject, $message, $headers);*/
+			mail($to, $subject, $message, $headers);
+		}
 	}
 	else{
 		echo "nombre";

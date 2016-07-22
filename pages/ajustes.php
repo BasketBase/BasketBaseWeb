@@ -196,19 +196,21 @@
 							include "../php/config.php";
 							$ruta="/BasketBaseWeb/img/user/";
 							$login=$_COOKIE["user"];
-							$qry="SELECT dni FROM usuarios
+							$qry="SELECT dni, imagen FROM usuarios
 												   WHERE dni = '".$login."'
 												   OR 	 nick = '".$login."'
 												   OR 	 email = '".$login."'";
 
 							$res=mysqli_query($con, $qry) or die ($qry);
-							$dni=mysqli_fetch_assoc($res)["dni"];
-							$ruta=$ruta.$dni."/";
+							$row=mysqli_fetch_assoc($res);
+							$dni=$row["dni"];
+							$ruta.=$dni."/";
 
-							foreach(glob($ruta.'*.*') as $file) {
-								if(!end(glob($ruta.'*.*'))){
+							foreach(scandir($_SERVER['DOCUMENT_ROOT'].$ruta) as $file) {
+								if($file!="." && $file!="..")
+								if($file!=$row["imagen"]){
 									echo '<div class="imgPerfil col-md-3 col-sm-4 col-xs-6">
-										  <img src="'.$ruta.$file.'">
+										  <img src="'."/img/user/".$file.'">
 									  </div>';
 								}
 								else{
