@@ -93,82 +93,26 @@
 			</div>
 		</div>
 		<div id="container" class="col-xs-12">
-			<div class="table-responsive">
-				<table class="table">
-					<thead>
-						<tr>
-							<th colspan="4">USUARIO</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td></td>
-							<td>
-								<a href="/BasketBaseWeb/pages/ajustes/usuario/editar.php">EDITAR DATOS</a>
-							</td>
-							<td>
-								<a href="/BasketBaseWeb/pages/ajustes/usuario/contrasena.php">CAMBIAR CONTRASEÑA</a>
-							</td>
-							<td>
-								<a style="cursor: pointer" class="cImg">CAMBIAR IMAGEN</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+			<div class="tables col-xs-12">
+				<div class="titleA col-xs-offset-1 col-xs-11">USUARIO</div>
+				<div class="elemA col-sm-4 col-xs-12"><a href="/BasketBaseWeb/pages/ajustes/usuario/editar.php">EDITAR DATOS</a></div>
+				<div class="elemA col-sm-4 col-xs-12"><a href="/BasketBaseWeb/pages/ajustes/usuario/contrasena.php">CAMBIAR CONTRASEÑA</a></div>
+				<div class="elemA col-sm-4 col-xs-12 cImg"><a>CAMBIAR IMAGEN</a></div>
 			</div>
 
-			<div class="table-responsive permiso">
-				<table class="table">
-					<thead>
-						<tr>
-							<th colspan="4">ADMINISTRADOR</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td></td>
-							<td class="perClub">
-								<a href="/BasketBaseWeb/pages/ajustes/club.php">CLUB</a>
-							</td>
-							<td class="perPatro">
-								<a href="/BasketBaseWeb/pages/ajustes/servicio.php">SERVICIO</a>
-							</td>
-							<td class="perEve">
-								<a href="/BasketBaseWeb/pages/ajustes/evento.php">EVENTO</a>
-							</td>
-						</tr>
-						<tr class="admin">
-							<td></td>
-							<td>
-								<a href="/BasketBaseWeb/pages/adminPabellon">PABELLONES</a>
-							</td>
-							<td>
-								<a href="/BasketBaseWeb/pages/adminEntrena">ENTRENADORES</a>
-							</td>
-							<td>
-								<a href="/BasketBaseWeb/pages/adminUsuarios">USUARIOS</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+			<div class="tables permiso col-xs-12">
+				<div class="titleA col-xs-offset-1 col-xs-11">ADMINISTRADOR</div>
+				<div class="elemA perClub col-sm-4 col-xs-12"><a href="/BasketBaseWeb/pages/ajustes/club.php">CLUB</a></div>
+				<div class="elemA perPatro col-sm-4 col-xs-12"><a href="/BasketBaseWeb/pages/ajustes/servicio.php">SERVICIO</a></div>
+				<div class="elemA perEve col-sm-4 col-xs-12"><a href="/BasketBaseWeb/pages/ajustes/evento.php">EVENTO</a></div>
+				<div class="elemA admin col-sm-4 col-xs-12"><a href="/BasketBaseWeb/pages/adminPabellon">PABELLONES</a></div>
+				<div class="elemA admin col-sm-4 col-xs-12"><a href="/BasketBaseWeb/pages/adminEntrena">ENTRENADORES</a></div>
+				<div class="elemA admin col-sm-4 col-xs-12"><a href="/BasketBaseWeb/pages/adminUsua">USUARIOS</a></div>
 			</div>
 
-			<div class="table-responsive admin">
-				<table class="table">
-					<thead>
-						<tr>
-							<th colspan="4">GESTIÓN</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>
-								<a href="http://gestion.basketbaseweb.com">ACCEDER</a>
-							</td>
-							<td></td><td></td><td></td>
-						</tr>
-					</tbody>
-				</table>
+			<div class="tables admin col-xs-12">
+				<div class="titleA col-xs-offset-1 col-xs-11">GESTIÓN</div>
+				<div class="elemA col-sm-4 col-xs-12"><a href="http://gestion.basketbaseweb.com">ACCEDER</a></div>
 			</div>
 		</div>
 		<div id="foot" class="col-xs-12">

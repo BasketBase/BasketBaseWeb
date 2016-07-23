@@ -64,7 +64,7 @@
 					<span class="tit-item-menu">Promociones</span>
 				</div>
 			</a>
-			<a href="/BasketBaseWeb/pages/promos.php">
+			<a href="/BasketBaseWeb/pages/ajustes.php">
 				<div class="item-menu ajustes">
 					<span class="img-item-menu glyphicon glyphicon-cog"></span>
 					<span class="tit-item-menu">Ajustes</span>

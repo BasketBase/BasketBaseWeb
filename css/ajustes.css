@@ -1,4 +1,8 @@
-.table-responsive{
+.admin{
+	display: none;
+}
+
+.tables{
 	height: initial;
 	text-align: center;
 	width: 90% !important;
@@ -6,8 +10,16 @@
 	margin-top: 25px;
 }
 
-.admin{
-	display: none;
+.titleA{
+	font-weight: bold;
+	text-align: left;
+	border-bottom: 2px solid rgb(221, 221, 221);
+	margin-bottom: 5px;
+	padding-bottom: 5px;
+}
+
+.elemA{
+	margin-bottom: 5px;
 }
 
 .modal *{
