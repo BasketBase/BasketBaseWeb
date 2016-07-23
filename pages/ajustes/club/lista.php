@@ -120,7 +120,7 @@
 
 					echo "<div class='breadcrumbs'><a href='../club.php'>/</a><span>".utf8_encode($row['nombre'])."</span></div>";
 
-					$consulta="SELECT * FROM clubs WHERE cp=".$_GET["prov"];
+					$consulta="SELECT * FROM clubs WHERE provincia=".$_GET["prov"];
 
 					$res=mysqli_query($con, $consulta);
 
@@ -139,15 +139,17 @@
 				<div id="contClubs">
 					<?php
 						while($row=mysqli_fetch_array($res)){
-							echo 	"<div class='
+							echo 	"<a class='
 											clubsItem 
 											col-xs-offset-2
 											col-sm-offset-1 
 											col-md-2
 											col-sm-3
-											col-xs-4'>
-												<a href='/BasketBaseWeb/pages/ajustes/equipo/lista.php?club=".$row["codigo"]."'>".utf8_encode($row["nombre"])."</a>
-									</div>";
+											col-xs-4'
+											href='/BasketBaseWeb/pages/ajustes/equipo/lista.php?club=".$row["codigo"]."'>
+												<img class='logoClub' src='/BasketBaseWeb/img/user/noImage.jpg'/>
+												<div class='nomClub'>".utf8_encode($row["nombre"])."</div>
+									</a>";
 						};
 
 						echo "<a class='

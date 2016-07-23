@@ -1,5 +1,6 @@
 .subir{
 	font-size: 50px;
+	margin-top: 70px;
 }
 
 #contClubs{
@@ -7,8 +8,42 @@
 	font-size: 17px;
 }
 
+.logoClub{
+	width: 172px;
+	height: 172px;
+}
+
+.clubsItem{
+	text-align: center;
+}
+
 @media (max-width: 700px) {
 	#container{
 		left: 0;
+	}
+
+	.subir{
+		margin-top: 30px;
+	}
+
+	.logoClub{
+		width: 100px;
+		height: 100px;
+	}
+}
+
+@media (max-width: 400px) {
+	#container{
+		left: 0;
+	}
+
+	.subir{
+		font-size: 40px;
+		margin-top: 30px;
+	}
+
+	.logoClub{
+		width: 70px;
+		height: 70px;
 	}
 }
