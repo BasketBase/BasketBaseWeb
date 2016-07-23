@@ -125,20 +125,64 @@
 					<?php
 						include "../../php/config.php";
 
-						$qry="SELECT * FROM provincias ORDER BY cp";
-						$res=mysqli_query($con, $qry) or die ($qry);
+						if($row['admin']==1){
+							$qry="SELECT * FROM provincias ORDER BY cp";
+							$res=mysqli_query($con, $qry) or die ($qry);
 
-						while($row=mysqli_fetch_array($res)){
-							echo 	"<div class='
-											provItem 
-											col-xs-offset-2
-											col-sm-offset-1 
-											col-md-2
-											col-sm-3
-											col-xs-4'>
-												<a href='/BasketBaseWeb/pages/ajustes/club/lista.php?prov=".$row["cp"]."'>".utf8_encode($row["nombre"])."</a>
-									</div>";
-						};
+							while($row=mysqli_fetch_array($res)){
+								echo 	"<div class='
+												provItem 
+												col-xs-offset-2
+												col-sm-offset-1 
+												col-md-2
+												col-sm-3
+												col-xs-4'>
+													<a href='/BasketBaseWeb/pages/ajustes/club/lista.php?prov=".$row["cp"]."'>".utf8_encode($row["nombre"])."</a>
+										</div>";
+							};
+						}
+						else{
+							$qryPC="SELECT club FROM permiso_club WHERE dni='".$row['dni']."'";
+							$resPC=mysqli_query($con, $qryPC) or die ($qryPC);
+							$lon=mysqli_num_rows($resPC);
+
+							if($lon>0){
+								if($lon>1){
+									$qryCP="SELECT DISTINCT provincia FROM clubs WHERE codigo IN (".$qryPC.")";
+									$resCP=mysqli_query($con, $qryCP) or die ($qryCP);
+									if(mysqli_num_rows($resCP)>1){
+										$qryP="SELECT * FROM provincias WHERE cp IN (".$qryCP.") ORDER BY cp";
+										$resP=mysqli_query($con, $qryP) or die ($qryP);
+
+										while($rowP=mysqli_fetch_array($resP)){
+											echo 	"<div class='
+															provItem 
+															col-xs-offset-2
+															col-sm-offset-1 
+															col-md-2
+															col-sm-3
+															col-xs-4'>
+																<a href='/BasketBaseWeb/pages/ajustes/club/lista.php?prov=".$rowP["cp"]."'>".utf8_encode($rowP["nombre"])."</a>
+													</div>";
+										};
+									}
+									else{
+										$rowCP=mysqli_fetch_assoc($resCP);
+										header("Location: http://localhost/BasketBaseWeb/pages/ajustes/club/lista.php?prov=".$rowCP['provincia']);
+										exit();
+									}
+								}
+								else{
+									$rowPC=mysqli_fetch_assoc($resPC);
+									header("Location: http://localhost/BasketBaseWeb/pages/ajustes/club/equipos.php?club=".$rowPC['club']);
+									exit();
+								}
+							}
+							else{
+								header("Location: http://localhost/BasketBaseWeb/errors/403.html");
+								exit();
+							}
+						}
 					?>
 				</div>
 			<?php

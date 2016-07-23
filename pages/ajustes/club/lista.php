@@ -116,13 +116,23 @@
 				if($row!=null){
 					$consulta="SELECT * FROM provincias WHERE cp = ".$_GET['prov'];
 
-					$row=mysqli_fetch_assoc(mysqli_query($con, $consulta));
+					$rowP=mysqli_fetch_assoc(mysqli_query($con, $consulta));
 
-					echo "<div class='breadcrumbs'><a href='../club.php'>/</a><span>".utf8_encode($row['nombre'])."</span></div>";
+					echo "<div class='breadcrumbs'><a href='../club.php'>/</a><span>".utf8_encode($rowP['nombre'])."</span></div>";
 
-					$consulta="SELECT * FROM clubs WHERE provincia=".$_GET["prov"];
+					$res="";
 
-					$res=mysqli_query($con, $consulta);
+					if($row["admin"]!=1){
+						$sub="SELECT club FROM permiso_club WHERE dni='".$row['dni']."'";
+						$consulta="SELECT * FROM clubs WHERE provincia=".$_GET["prov"]." AND codigo IN (".$sub.")";
+
+						$res=mysqli_query($con, $consulta);
+					}
+					else{
+						$consulta="SELECT * FROM clubs WHERE provincia=".$_GET["prov"];
+
+						$res=mysqli_query($con, $consulta);
+					}
 
 					if(mysqli_num_rows($res)>0){
 						echo '<input type="text" id="seeker" placeholder="Busca un club..."/>';
