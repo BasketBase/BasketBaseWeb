@@ -148,7 +148,7 @@
 				</table>
 				<div id="contClubs">
 					<?php
-						while($row=mysqli_fetch_array($res)){
+						while($rowC=mysqli_fetch_array($res)){
 							echo 	"<a class='
 											clubsItem 
 											col-xs-offset-2
@@ -156,23 +156,24 @@
 											col-md-2
 											col-sm-3
 											col-xs-4'
-											href='/BasketBaseWeb/pages/ajustes/equipo/lista.php?club=".$row["codigo"]."'>
+											href='/BasketBaseWeb/pages/ajustes/equipo/lista.php?club=".$rowC["codigo"]."'>
 												<img class='logoClub' src='/BasketBaseWeb/img/user/noImage.jpg'/>
-												<div class='nomClub'>".utf8_encode($row["nombre"])."</div>
+												<div class='nomClub'>".utf8_encode($rowC["nombre"])."</div>
 									</a>";
 						};
-
-						echo "<a class='
-									clubsItem
-									subir
-									col-xs-offset-2
-									col-sm-offset-1 
-									col-md-2
-									col-sm-3
-									col-xs-4'
-								href='/BasketBaseWeb/pages/ajustes/club/anadir.php?prov=".$_GET["prov"]."'>
-								<span class='fa fa-plus'  aria-hidden='true'></span>
-							</a>";
+						if($row["admin"]!=0){
+							echo "<a class='
+										clubsItem
+										subir
+										col-xs-offset-2
+										col-sm-offset-1 
+										col-md-2
+										col-sm-3
+										col-xs-4'
+									href='/BasketBaseWeb/pages/ajustes/club/anadir.php?prov=".$_GET["prov"]."'>
+									<span class='fa fa-plus'  aria-hidden='true'></span>
+								</a>";
+						}
 					?>
 				</div>
 			<?php
