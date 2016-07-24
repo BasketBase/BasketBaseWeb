@@ -1,7 +1,7 @@
 var cp, nombre, url, facebook, direccion, telefono, email, rutaLogo, tipoLogo, obj_file;
 
 $(function(){
-	cp= location.search.split('prov=')[1]
+	cp= location.search.split('prov=')[1];
 	$("#auth_nombre").focus();
 
 	$("#auth_nombre").keyup(function(){
