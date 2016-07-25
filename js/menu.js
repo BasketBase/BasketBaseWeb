@@ -34,7 +34,7 @@ $(function(){
         	}
         },
         error: function(data){
-        	console.log(data);
+        	showAlert("<strong>¡ERROR!</strong> "+data, "danger");
         }
     });
 

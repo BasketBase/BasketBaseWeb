@@ -15,7 +15,6 @@ $(function(){
 	        url: 	'/BasketBaseWeb/php/ajustes/usuario/contrasena.php',
 	        data: 	"sigue="+pass
 	        ,success:function(data){
-	        	console.log(data);
 	        	if(data!=0){
 	        		$("#auth_repPass").show();
 					$(".editPass").show();
@@ -29,7 +28,7 @@ $(function(){
 	        	}
 	        },
 	        error: function(data){
-	        	console.log(data);
+	        	showAlert("<strong>¡ERROR!</strong> "+data, "danger");
 	        }
 	    });
 	});
@@ -46,7 +45,7 @@ $(function(){
     			window.location.href = "http://localhost/BasketBaseWeb/pages/ajustes.php";
 	        },
 	        error: function(data){
-	        	console.log(data);
+	        	showAlert("<strong>¡ERROR!</strong> "+data, "danger");
 	        }
 	    });
 	});

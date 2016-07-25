@@ -18,12 +18,12 @@
 
 		<!--Custom CSS -->
 		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/styles.css" />
-		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/ajustes/equipo/lista.css" />
+		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/ajustes/club/editar.css" />
 
 		<!-- Custom JS -->
 		<script type="text/javascript" src="/BasketBaseWeb/js/BasketBaseWeb.js"></script>
 		<script type="text/javascript" src="/BasketBaseWeb/js/menu.js"></script>
-		<script type="text/javascript" src="/BasketBaseWeb/js/ajustes/equipo/lista.js"></script>
+		<script type="text/javascript" src="/BasketBaseWeb/js/ajustes/club/editar.js"></script>
 	</head>
 	<body>
 		<div id="header" class="col-xs-12">
@@ -114,75 +114,86 @@
 				$row=mysqli_fetch_assoc(mysqli_query($con, $consulta));
 
 				if($row!=null){
-					$consulta="SELECT cp, p.nombre prov, c.nombre club FROM clubs c join provincias p ON c.provincia=p.cp WHERE c.codigo=".$_GET['club'];
-
-					$rowC=mysqli_fetch_assoc(mysqli_query($con, $consulta));
-
-					echo "<div class='breadcrumbs'><a href='../club.php'>/</a><a href='../club/lista.php?prov=".$rowC['cp']."'>".utf8_encode($rowC['prov'])."</a><span>/".utf8_encode($rowC['club'])."</span></div>";
-
-					$qryPC="SELECT * FROM permiso_club WHERE club=".$_GET["club"]." AND dni='".$row['dni']."'";
-					$lonPC=mysqli_num_rows(mysqli_query($con, $qryPC));
-
-					if($lonPC>0 || $row["admin"]!=0){
-						$consulta="SELECT * FROM equipos WHERE club=".$_GET["club"];
-
-						$res=mysqli_query($con, $consulta);
-
-						if(mysqli_num_rows($res)>0){
-							echo '<input type="text" id="seeker" placeholder="Busca un equipo..."/>';
-						}
-						else{
-							echo '<input type="text" id="seeker" placeholder="Busca un equipo..." disabled/>';
-						}
+					$qry="SELECT * FROM clubs WHERE codigo=".$_GET["club"];
+					$rowC=mysqli_fetch_assoc(mysqli_query($con, $qry));
 			?>
-				<table class="table table-responsive table-hover results col-xs-10 col-sm-8">
-					<tbody>
-						
-					</tbody>
-				</table>
-				<div id="contEquipos" class="col-xs-10 col-sm-9">
+			<form role="form">
+				<div id="nombre" class="form-group col-md-6 col-xs-12">
+					<label class="nombre" for="nombre">
+						<span class="fa fa-user" style="margin-right: 10px"></span>
+						<span>* Nombre</span>
+						<span class="error nombre-lon">No puede quedar vacío.</span>
+					</label>
 					<?php
-						while($rowE=mysqli_fetch_array($res)){
-							echo 	"<a class='
-											equiposItem 
-											col-xs-offset-2
-											col-sm-offset-1 
-											col-md-2
-											col-sm-3
-											col-xs-4'
-											href='/BasketBaseWeb/pages/ajustes/equipo/partidos.php?equipo=".$rowE["codigo"]."'>
-												<img class='logoClub' src='/BasketBaseWeb/img/user/noImage.jpg'/>
-												<div class='nomClub'>".utf8_encode($rowE["nombre"])."</div>
-									</a>";
-						};
-						echo "<a class='
-									equiposItem
-									subir
-									col-xs-offset-2
-									col-sm-offset-1 
-									col-md-2
-									col-sm-3
-									col-xs-4'
-								href='/BasketBaseWeb/pages/ajustes/equipo/anadir.php?club=".$_GET["club"]."'>
-								<span class='fa fa-plus' aria-hidden='true'></span>
-							</a>";
+						echo '<input type="text" class="form-control" id="auth_nombre"
+					       placeholder="Introduce el nombre" maxlength="100" value="'.$rowC['nombre'].'">';
 					?>
 				</div>
-				<div class="col-xs-2 col-sm-3">
-					<div class="col-xs-2 col-sm-4"><strong>OPCIONES</strong></div>
+				<div id="url" class="form-group col-md-6 col-xs-12">
+					<label class="url" for="url">
+						<span class="fa fa-globe" style="margin-right: 10px"></span>
+						<span>Dirección web</span>
+					</label>
 					<?php
-						echo '<a href="/BasketBaseWeb/pages/ajustes/club/noticias.php?club='.$_GET["club"].'" class="col-xs-12">NOTICIAS</a>';
-						echo '<a href="/BasketBaseWeb/pages/ajustes/club/editar.php?club='.$_GET["club"].'" class="col-xs-12">EDITAR DATOS</a>';
+						echo '<input type="text" class="form-control" id="auth_url"
+					       placeholder="Introduce el sitio web" maxlength="255" value="'.$rowC['url'].'">';
 					?>
-					<a class="col-xs-12 addAdmin">AÑADIR ADMINISTRADOR</a>
 				</div>
+				<div id="facebook" class="form-group col-md-6 col-xs-12">
+					<label class="facebook" for="facebook">
+						<span class="fa fa-facebook-official" style="margin-right: 10px"></span>
+						<span>Facebook</span>
+					</label>
+					<?php
+						echo '<input type="text" class="form-control" id="auth_facebook"
+					       placeholder="Introduce la url de facebook" maxlength="255" valie="'.$rowC['facebook'].'">';
+					?>
+				</div>
+				<div id="direccion" class="form-group col-md-6 col-xs-12">
+					<label class="direccion" for="direccion">
+						<span class="fa fa-street-view" style="margin-right: 10px"></span>
+						<span>Dirección</span>
+					</label>
+					<?php
+						echo '<input type="text" class="form-control" id="auth_direccion"
+					       placeholder="Introduce la direccion" maxlength="200" value="'.$rowC['direccion'].'">';
+					?>
+				</div>
+				<div id="telefono" class="form-group col-md-6 col-xs-12">
+					<label class="telefono" for="telefono">
+						<span class="fa fa-phone" style="margin-right: 10px"></span>
+						<span>Teléfono</span>
+					</label>
+					<?php
+						echo '<input type="text" class="form-control" id="auth_telefono"
+					       placeholder="Introduce el telefono" maxlength="12" value="'.$rowC['telefono'].'">';
+					?>
+				</div>
+				<div id="email" class="form-group col-md-6 col-xs-12">
+					<label class="email" for="email">
+						<span class="fa fa-envelope" style="margin-right: 10px"></span>
+						<span>Email</span>
+					</label>
+					<?php
+						echo '<input type="email" class="form-control" id="auth_email"
+					       placeholder="Introduce el email" maxlength="200" value="'.$rowC['email'].'">';
+					?>
+				</div>
+				<div id="logo" class="form-group col-xs-12">
+					<label class="logo" for="logo">
+						<span class="fa fa-image" style="margin-right: 10px"></span>
+						<span>Logo</span>
+					</label>
+					<?php
+						echo '<input name="logo" type="file" class="form-control" id="auth_logo" value="'.$rowC['logo'].'"/>';
+					?>
+				</div>
+				<span class="error campo-error" style="color: red"></span>
+				<span class="error bd-error" style="color: red">Ha ocurrido un error en el servidor. Vuelva a intentarlo más tarde. Disculpe las molestias.</span>
+				<button type="submit" class="btn btn-warning editaClub">Cambiar</button>
+			</form>
 			<?php
-					}
 
-					else{
-						header("Location: http://localhost/errors/403.html");
-						exit();
-					}
 				}
 
 				else{
@@ -199,41 +210,6 @@
 			<a href="https://twitter.com/basketbaseapp" target="_blank"><span class="fa fa-twitter"></span></a>
 			<a href="https://facebook.com/basketbase" target="_blank"><span class="fa fa-facebook-official"></span></a>
 			<a href="https://www.youtube.com/channel/UCBXOEDHVG8lZKQxLU41Di3w" target="_blank"><span class="fa fa-youtube"></span></a>
-		</div>
-
-		<!--**********************   MODAL ADMIN   ************************-->
-		<div class="modal fade" tabindex="-1" role="dialog">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h4 class="modal-title">Añadir administrador</h4>
-					</div>
-					<div class="modal-body">
-						<?php
-							include "../../../php/config.php";
-
-							$qry="SELECT u.dni as dni, nick, club FROM usuarios u LEFT JOIN permiso_club pc on u.dni=pc.dni AND club=".$_GET["club"]." WHERE admin=0 AND u.dni!='".$row['dni']."' ORDER BY nick";
-							$res=mysqli_query($con, $qry);
-
-							while($row=mysqli_fetch_array($res)){
-								if($row['club']!=null){
-									echo "<div class='col-sm-3 col-xs-6'><input checked type='checkbox' value='".$row["dni"]."' />".$row["nick"]."</div>";
-								}
-								else{
-									echo "<div class='col-sm-3 col-xs-6'><input type='checkbox' value='".$row["dni"]."' />".$row["nick"]."</div>";
-								}
-							};
-						?>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-						<button type="button" class="btn btn-primary selec">Conceder</button>
-					</div>
-				</div>
-			</div>
 		</div>
 	</body>
 </html>

@@ -1,8 +1,9 @@
-var cp, nombre, url, facebook, direccion, telefono, email, rutaLogo, tipoLogo, obj_file;
+var nombre, url, facebook, direccion, telefono, email, rutaLogo, tipoLogo;
 
 $(function(){
-	cp= location.search.split('prov=')[1];
 	$("#auth_nombre").focus();
+
+	preEdicion();
 
 	$("#auth_nombre").keyup(function(){
 		nombre=$(this).val().trim();
@@ -15,26 +16,22 @@ $(function(){
 		}
 	});
 
-	$(".altaClub").click(function(ev){
-		ev.preventDefault();
+	$(".editaClub").click(function(event){
+		event.preventDefault();
 
-		url=$("#auth_url").val();
-		facebook=$("#auth_facebook").val();
-		direccion=$("#auth_direccion").val();
-		telefono=$("#auth_telefono").val();
-		email=$("#auth_email").val();
+		iniciarDatos();
 
 		$.ajax({
 	        type: 	'POST',
-	        url: 	'/BasketBaseWeb/php/ajustes/club/anadir.php',
+	        url: 	'/BasketBaseWeb/php/ajustes/club/editar.php',
 	        data: 	"nombre="+nombre+
-	        		"&cp="+cp+
 	        		"&url="+url+
 	        		"&facebook="+facebook+
 	        		"&direccion="+direccion+
 	        		"&telefono="+telefono+
 	        		"&email="+email+
-	        		"&tipoLogo="+tipoLogo
+	        		"&tipoLogo="+tipoLogo+
+	        		"&club="+location.search.split('club=')[1]
 	        ,success:function(data){
 	        	switch(data){
 	        		case "nombre":
@@ -51,8 +48,8 @@ $(function(){
 			                processData: false,
 					        data: 	obj_file,
 					        success:function(data){
-					        	//window.location.href = "http://dev.basketbaseweb.com/pages/ajustes/club/lista.php?prov="+cp;
-					        	window.location.href = "http://localhost/BasketBaseWeb/pages/ajustes/club/lista.php?prov="+cp;
+					        	//window.location.href = "http://dev.basketbaseweb.com/pages/ajustes/equipo/lista.php?club="+location.search.split('club=')[1];
+					        	window.location.href = "http://localhost/BasketBaseWeb/pages/ajustes/equipo/lista.php?club="+location.search.split('club=')[1];
 
 					        },
 					        error: function(data){
@@ -107,6 +104,35 @@ $(function(){
 	});
 });
 
+
+
+
+
+
+
+function iniciarDatos(){
+	nombre=$("#auth_nombre").val().trim();
+	url=$("#auth_url").val().trim();
+	facebook=$("#auth_facebook").val().trim();
+	direccion=$("#auth_direccion").val().trim();
+	telefono=$("#auth_telefono").val().trim();
+	email=$("#auth_email").val().trim();
+}
+
+function preEdicion(){
+	//Control del nick
+	$("#auth_nombre").keyup(function(){
+		nombre=$(this).val().trim();
+
+		if(nombre.length<=0){
+			showError(".nombre-lon", "#nombre");
+		}
+		else{
+			setSuccess("#nombre");
+		}
+	});
+}
+
 function showError(error, input){
 	hideError(input+" .error", input);
 	$(error).show();
@@ -114,7 +140,7 @@ function showError(error, input){
 			.removeClass("has-success")
 			.css("color", "red");
 
-	$(".altaClub").prop("disabled", true);
+	$(".registro").prop("disabled", true);
 }
 
 function hideError(error, input){
@@ -129,13 +155,13 @@ function setSuccess(input){
 	$(input).addClass("has-success")
 			.css("color", "green");
 
-	if($(".has-success").length>=1){
-		$(".altaClub").prop("disabled", false);
+	if($(".has-success").length>=6){
+		$(".registro").prop("disabled", false);
 	}
 }
 
 function errorInsert(campo, valor){
-	$(".campo-error").text("El "+campo+" '"+valor+"' ya existe como club.");
+	$(".campo-error").text("El "+campo+" '"+valor+"' ya existe.");
 	showError(".campo-error", "#"+campo);
 	$("#auth_"+campo).val("").focus();
 }

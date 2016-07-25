@@ -33,7 +33,7 @@ $(function(){
             var width = img.naturalWidth;
 
             if(width>100){
-            	console.log("La imagen no puede tener mas de 100px de ancho para que se visualice bien. Disculpe las molestias.");
+            	showAlert("<strong>¡ERROR!</strong> La imagen no puede tener mas de 100px de ancho para que se visualice bien. Disculpe las molestias.", "danger");
             }
             else{
             	var found=false;
@@ -44,7 +44,7 @@ $(function(){
             	});
 
             	if(!found){
-            		console.log("Sólo se pueden subir archivos .jpg o .png. Disculpe las molestias.");
+            		showAlert("<strong>¡ERROR!</strong> Sólo se pueden subir archivos .jpg o .png. Disculpe las molestias.", "danger");
             	}
             	else{
             		$.ajax({

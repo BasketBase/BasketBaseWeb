@@ -18,12 +18,12 @@
 
 		<!--Custom CSS -->
 		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/styles.css" />
-		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/ajustes/equipo/lista.css" />
+		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/ajustes/club/noticias.css" />
 
 		<!-- Custom JS -->
 		<script type="text/javascript" src="/BasketBaseWeb/js/BasketBaseWeb.js"></script>
 		<script type="text/javascript" src="/BasketBaseWeb/js/menu.js"></script>
-		<script type="text/javascript" src="/BasketBaseWeb/js/ajustes/equipo/lista.js"></script>
+		<script type="text/javascript" src="/BasketBaseWeb/js/ajustes/club/noticias.js"></script>
 	</head>
 	<body>
 		<div id="header" class="col-xs-12">
@@ -114,75 +114,38 @@
 				$row=mysqli_fetch_assoc(mysqli_query($con, $consulta));
 
 				if($row!=null){
-					$consulta="SELECT cp, p.nombre prov, c.nombre club FROM clubs c join provincias p ON c.provincia=p.cp WHERE c.codigo=".$_GET['club'];
+				?>
 
-					$rowC=mysqli_fetch_assoc(mysqli_query($con, $consulta));
+				<a href='/BasketBaseWeb'><button class="addNotice col-xs-5 col-xs-offset-3 btn btn-primary">Añadir noticia</button></a>
 
-					echo "<div class='breadcrumbs'><a href='../club.php'>/</a><a href='../club/lista.php?prov=".$rowC['cp']."'>".utf8_encode($rowC['prov'])."</a><span>/".utf8_encode($rowC['club'])."</span></div>";
-
-					$qryPC="SELECT * FROM permiso_club WHERE club=".$_GET["club"]." AND dni='".$row['dni']."'";
-					$lonPC=mysqli_num_rows(mysqli_query($con, $qryPC));
-
-					if($lonPC>0 || $row["admin"]!=0){
-						$consulta="SELECT * FROM equipos WHERE club=".$_GET["club"];
-
-						$res=mysqli_query($con, $consulta);
-
-						if(mysqli_num_rows($res)>0){
-							echo '<input type="text" id="seeker" placeholder="Busca un equipo..."/>';
-						}
-						else{
-							echo '<input type="text" id="seeker" placeholder="Busca un equipo..." disabled/>';
-						}
-			?>
-				<table class="table table-responsive table-hover results col-xs-10 col-sm-8">
+				<table class="table table-striped table-hover table-responsive">
+					<thead>
+						<tr>
+							<th class='fechaTit'>Fecha</th>
+							<th>Título</th>
+						</tr>
+					</thead>
 					<tbody>
-						
+						<?php
+							$qryN="SELECT * FROM noticias WHERE club=".$_GET["club"];
+							$resN=mysqli_query($con, $qryN);
+							if(mysqli_num_rows($resN)>0){
+								while($rowN=mysqli_fetch_array($resN)){
+									echo "<tr>
+											  <td class='fecha'>"+$resN['fecha']+"</td>
+											  <td class='titulo'>"+$resN['titulo']+"</td>
+										  </tr>";
+								};
+							}
+							else{
+								echo "<tr>
+										  <td class='noResults' colspan='2'>No hay resultados.</td>
+									  </tr>";
+							}
+						?>
 					</tbody>
 				</table>
-				<div id="contEquipos" class="col-xs-10 col-sm-9">
-					<?php
-						while($rowE=mysqli_fetch_array($res)){
-							echo 	"<a class='
-											equiposItem 
-											col-xs-offset-2
-											col-sm-offset-1 
-											col-md-2
-											col-sm-3
-											col-xs-4'
-											href='/BasketBaseWeb/pages/ajustes/equipo/partidos.php?equipo=".$rowE["codigo"]."'>
-												<img class='logoClub' src='/BasketBaseWeb/img/user/noImage.jpg'/>
-												<div class='nomClub'>".utf8_encode($rowE["nombre"])."</div>
-									</a>";
-						};
-						echo "<a class='
-									equiposItem
-									subir
-									col-xs-offset-2
-									col-sm-offset-1 
-									col-md-2
-									col-sm-3
-									col-xs-4'
-								href='/BasketBaseWeb/pages/ajustes/equipo/anadir.php?club=".$_GET["club"]."'>
-								<span class='fa fa-plus' aria-hidden='true'></span>
-							</a>";
-					?>
-				</div>
-				<div class="col-xs-2 col-sm-3">
-					<div class="col-xs-2 col-sm-4"><strong>OPCIONES</strong></div>
-					<?php
-						echo '<a href="/BasketBaseWeb/pages/ajustes/club/noticias.php?club='.$_GET["club"].'" class="col-xs-12">NOTICIAS</a>';
-						echo '<a href="/BasketBaseWeb/pages/ajustes/club/editar.php?club='.$_GET["club"].'" class="col-xs-12">EDITAR DATOS</a>';
-					?>
-					<a class="col-xs-12 addAdmin">AÑADIR ADMINISTRADOR</a>
-				</div>
-			<?php
-					}
-
-					else{
-						header("Location: http://localhost/errors/403.html");
-						exit();
-					}
+				<?php
 				}
 
 				else{
@@ -199,41 +162,6 @@
 			<a href="https://twitter.com/basketbaseapp" target="_blank"><span class="fa fa-twitter"></span></a>
 			<a href="https://facebook.com/basketbase" target="_blank"><span class="fa fa-facebook-official"></span></a>
 			<a href="https://www.youtube.com/channel/UCBXOEDHVG8lZKQxLU41Di3w" target="_blank"><span class="fa fa-youtube"></span></a>
-		</div>
-
-		<!--**********************   MODAL ADMIN   ************************-->
-		<div class="modal fade" tabindex="-1" role="dialog">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h4 class="modal-title">Añadir administrador</h4>
-					</div>
-					<div class="modal-body">
-						<?php
-							include "../../../php/config.php";
-
-							$qry="SELECT u.dni as dni, nick, club FROM usuarios u LEFT JOIN permiso_club pc on u.dni=pc.dni AND club=".$_GET["club"]." WHERE admin=0 AND u.dni!='".$row['dni']."' ORDER BY nick";
-							$res=mysqli_query($con, $qry);
-
-							while($row=mysqli_fetch_array($res)){
-								if($row['club']!=null){
-									echo "<div class='col-sm-3 col-xs-6'><input checked type='checkbox' value='".$row["dni"]."' />".$row["nick"]."</div>";
-								}
-								else{
-									echo "<div class='col-sm-3 col-xs-6'><input type='checkbox' value='".$row["dni"]."' />".$row["nick"]."</div>";
-								}
-							};
-						?>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-						<button type="button" class="btn btn-primary selec">Conceder</button>
-					</div>
-				</div>
-			</div>
 		</div>
 	</body>
 </html>

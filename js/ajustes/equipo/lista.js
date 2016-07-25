@@ -29,7 +29,7 @@ $(function(){
 				window.location.href = "http://localhost/BasketBaseWeb/pages/ajustes/equipo/lista.php?club="+location.search.split('club=')[1];
 	        },
 	        error: function(data){
-	        	console.log(data);
+	        	showAlert("<strong>¡ERROR!</strong> "+data, "danger");
 	        }
 	    });
 	});

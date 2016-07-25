@@ -43,7 +43,7 @@ var seeker=function(rutaPeticion, rutaEnvio, separador, numberTF){
 			        	}
 			        },
 			        error: function(data){
-			        	console.log(data);
+			        	showAlert("<strong>¡ERROR!</strong> "+data, "danger");
 			        }
 			    });
 			}
@@ -54,4 +54,15 @@ var seeker=function(rutaPeticion, rutaEnvio, separador, numberTF){
 			$(".results").hide();
 		}
 	});
+}
+
+var showAlert=function(text, status){
+	$("body").prepend("<div class='alert alert-"+status+"'>"+text+"</div>");
+	$(".alert").slideDown("slow");
+
+	window.setTimeout(hideAlert, 6000);
+};
+
+var hideAlert=function(){
+	$(".alert").fadeOut("slow");
 }

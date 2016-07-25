@@ -256,6 +256,17 @@ form .fa{
 	font-size: 17px;
 }
 
+/*Alerts*/
+.alert{
+	height: initial;
+	width: 80%;
+	text-align: center;
+	margin: 13px 10%;
+	position: absolute;
+	z-index: 500;
+	display: none;
+}
+
 
 
 
