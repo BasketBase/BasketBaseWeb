@@ -18,12 +18,12 @@
 
 		<!--Custom CSS -->
 		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/styles.css" />
-		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/ajustes/club/noticias.css" />
+		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/ajustes/noticias/anadir.css" />
 
 		<!-- Custom JS -->
 		<script type="text/javascript" src="/BasketBaseWeb/js/BasketBaseWeb.js"></script>
 		<script type="text/javascript" src="/BasketBaseWeb/js/menu.js"></script>
-		<script type="text/javascript" src="/BasketBaseWeb/js/ajustes/club/noticias.js"></script>
+		<script type="text/javascript" src="/BasketBaseWeb/js/ajustes/noticias/anadir.js"></script>
 	</head>
 	<body>
 		<div id="header" class="col-xs-12">
@@ -114,42 +114,57 @@
 				$row=mysqli_fetch_assoc(mysqli_query($con, $consulta));
 
 				if($row!=null){
-					$qryC="SELECT cp, p.nombre prov, c.nombre club FROM clubs c join provincias p ON c.provincia=p.cp WHERE c.codigo=".$_GET['club'];
-
-					$rowC=mysqli_fetch_assoc(mysqli_query($con, $qryC));
-
-					echo "<div class='breadcrumbs'><a href='../club.php'>/</a><a href='../club/lista.php?prov=".$rowC['cp']."'>".utf8_encode($rowC['prov'])."</a><a href='../equipo/lista.php?club=".$_GET['club']."'>/".utf8_encode($rowC['club'])."</a></div>";
-					echo '<a href="/BasketBaseWeb/pages/ajustes/noticias/anadir.php?club='.$_GET['club'].'"><button class="addNotice col-xs-5 col-xs-offset-3 btn btn-primary">Añadir noticia</button></a>';
-				?>
-
-				<table class="table table-striped table-hover table-responsive">
-					<thead>
-						<tr>
-							<th class='fechaTit'>Fecha</th>
-							<th>Título</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-							$qryN="SELECT * FROM noticias WHERE club=".$_GET["club"]." ORDER BY codigo desc";
-							$resN=mysqli_query($con, $qryN);
-							if(mysqli_num_rows($resN)>0){
-								while($rowN=mysqli_fetch_array($resN)){
-									echo "<tr not='".$rowN['codigo']."'>
-											  <td class='fecha'>".date("d-m-Y H:i", strtotime($rowN['fecha']))."</td>
-											  <td class='titulo'>".$rowN['titulo']."</td>
-										  </tr>";
-								};
-							}
-							else{
-								echo "<tr>
-										  <td class='noResults' colspan='2'>No hay noticias.</td>
-									  </tr>";
-							}
-						?>
-					</tbody>
-				</table>
-				<?php
+			?>
+				<form role="form">
+					<div id="titulo" class="form-group col-md-6 col-xs-12">
+						<label class="titulo" for="titulo">
+							<span class="fa fa-user" style="margin-right: 10px"></span>
+							<span>* Título</span>
+							<span class="error titulo-lon">No puede quedar vacío.</span>
+						</label>
+						<input type="text" class="form-control" id="auth_titulo"
+						       placeholder="Introduce el título" maxlength="500">
+					</div>
+					<div id="subtitulo" class="form-group col-md-6 col-xs-12">
+						<label class="subtitulo" for="subtitulo">
+							<span class="fa fa-globe" style="margin-right: 10px"></span>
+							<span>Subtítulo</span>
+						</label>
+						<input type="text" class="form-control" id="auth_subtitulo"
+						       placeholder="Introduce el subtítulo" maxlength="1000">
+					</div>
+					<div id="imagen" class="form-group col-md-6 col-xs-12">
+						<label class="imagen" for="imagen">
+							<span class="fa fa-image" style="margin-right: 10px"></span>
+							<span>Imagen</span>
+						</label>
+						<input name="imagen" type="file" class="form-control" id="auth_imagen"/>
+					</div>
+					<div id="url" class="form-group col-md-6 col-xs-12">
+						<label class="url" for="url">
+							<span class="fa fa-street-view" style="margin-right: 10px"></span>
+							<span>Dirección Web</span>
+						</label>
+						<input type="text" class="form-control" id="auth_url"
+						       placeholder="Introduce la direccion web..." maxlength="200">
+					</div>
+					<div id="cuerpo" class="form-group col-xs-12">
+						<label class="cuerpo" for="cuerpo">
+							<span class="fa fa-facebook-official" style="margin-right: 10px"></span>
+							<span>Cuerpo</span>
+							<!--<div>
+								<button class='btn btn-default negrita'><span class="fa fa-bold"></span></button>
+								<button class='btn btn-default cursiva'><span class="fa fa-italic"></span></button>
+							</div>-->
+						</label>
+						<textarea type="text" class="form-control" id="auth_cuerpo"
+						       placeholder="Escribe el cuerpo aquí..." maxlength="10000" rows="6"></textarea>
+					</div>
+					<span class="error campo-error" style="color: red"></span>
+					<span class="error bd-error" style="color: red">Ha ocurrido un error en el servidor. Vuelva a intentarlo más tarde. Disculpe las molestias.</span>
+					<button type="submit" class="btn btn-warning addNotice" disabled>Añadir</button>
+				</form>
+			<?php
 				}
 
 				else{
