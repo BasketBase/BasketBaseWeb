@@ -22,10 +22,6 @@
 	margin-bottom: 5px;
 }
 
-.modal *{
-	height: auto;
-}
-
 .imgPerfil, .imgPerfil img{
 	height: 100px;
 }

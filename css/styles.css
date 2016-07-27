@@ -267,6 +267,11 @@ form .fa{
 	display: none;
 }
 
+/*Modals*/
+.modal *{
+	height: auto;
+}
+
 
 
 
