@@ -1,11 +1,21 @@
+.opciones{
+	margin-top: 10px;
+	text-align:center;
+}
+
+.opciones .btn{
+	width: 90%;
+}
+
 .subir{
-	font-size: 50px;
-	margin-top: 70px;
+	font-size: 25px;
 }
 
 #contEquipos{
 	margin-top: 20px;
 	font-size: 17px;
+	height: 50px !important;
+	margin-bottom: 5px;
 }
 .equiposItem{
 	text-align: center;
@@ -28,10 +38,5 @@
 @media (max-width: 400px) {
 	#container{
 		left: 0;
-	}
-
-	.subir{
-		font-size: 40px;
-		margin-top: 30px;
 	}
 }

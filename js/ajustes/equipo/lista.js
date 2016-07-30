@@ -33,4 +33,10 @@ $(function(){
 	        }
 	    });
 	});
+
+	seeker(
+		'/BasketBaseWeb/php/ajustes/equipo/lista.php?club='+location.search.split('club=')[1],
+		'/BasketBaseWeb/pages/ajustes/equipo/partidos.php?club=',
+		'//'
+	);
 });
