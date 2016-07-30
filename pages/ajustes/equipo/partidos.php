@@ -18,12 +18,12 @@
 
 		<!--Custom CSS -->
 		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/styles.css" />
-		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/ajustes/equipo/anadir.css" />
+		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/ajustes/equipo/partidos.css" />
 
 		<!-- Custom JS -->
 		<script type="text/javascript" src="/BasketBaseWeb/js/BasketBaseWeb.js"></script>
 		<script type="text/javascript" src="/BasketBaseWeb/js/menu.js"></script>
-		<script type="text/javascript" src="/BasketBaseWeb/js/ajustes/equipo/anadir.js"></script>
+		<script type="text/javascript" src="/BasketBaseWeb/js/ajustes/equipo/partidos.js"></script>
 	</head>
 	<body>
 		<div id="header" class="col-xs-12">
@@ -114,45 +114,43 @@
 				$row=mysqli_fetch_assoc(mysqli_query($con, $consulta));
 
 				if($row!=null){
-			?>
-				<form role="form">
-					<div id="nombre" class="form-group col-md-6 col-xs-12">
-						<label class="nombre" for="nombre">
-							<span class="fa fa-user" style="margin-right: 10px"></span>
-							<span>* Nombre</span>
-							<span class="error nombre-lon">No puede quedar vacío.</span>
-						</label>
-						<input type="text" class="form-control" id="auth_nombre"
-						       placeholder="Introduce el nombre" maxlength="150">
-					</div>
-					<div id="hora" class="form-group col-md-6 col-xs-12">
-						<label class="hora" for="hora">
-							<span class="fa fa-street-view" style="margin-right: 10px"></span>
-							<span>Hora de juego</span>
-							<span class="error hora-format">Formato de hora incorrecto.</span>
-						</label>
-						<input type="text" class="form-control" id="auth_hora"
-						       placeholder="hh:MM" maxlength="5">
-					</div>
-					<div id="camiLoc" class="form-group col-md-6 col-xs-12">
-						<label class="camiLoc" for="camiLoc">
-							<span class="fa fa-globe" style="margin-right: 10px"></span>
-							<span>Color camiseta local</span>
-						</label>
-						<input type="color" class="form-control" id="auth_camiLoc">
-					</div>
-					<div id="camiVIs" class="form-group col-md-6 col-xs-12">
-						<label class="camiVIs" for="camiVis">
-							<span class="fa fa-globe" style="margin-right: 10px"></span>
-							<span>Color camiseta visitante</span>
-						</label>
-						<input type="color" class="form-control" id="auth_camiVis">
-					</div>
-					<span class="error campo-error" style="color: red"></span>
-					<span class="error bd-error" style="color: red">Ha ocurrido un error en el servidor. Vuelva a intentarlo más tarde. Disculpe las molestias.</span>
-					<button type="submit" class="btn btn-warning altaEquipo" disabled>Registrar equipo</button>
-				</form>
-			<?php
+					$qryC="SELECT c.provincia AS cp, (SELECT nombre FROM provincias WHERE cp=c.provincia) AS prov, c.nombre AS club, e.nombre AS equipo, c.codigo AS clubCod, cami_loc, cami_vis FROM equipos e join clubs c ON e.club=c.codigo WHERE e.codigo=".$_GET['equipo'];
+
+					$rowC=mysqli_fetch_assoc(mysqli_query($con, $qryC));
+
+					echo "<div class='breadcrumbs'><a href='../club.php'>/</a><a href='../club/lista.php?prov=".$rowC['cp']."'>".utf8_encode($rowC['prov'])."</a><a href='../equipo/lista.php?club=".$rowC['clubCod']."'>/".utf8_encode($rowC['club'])."</a><span>/".utf8_encode($rowC['equipo'])."</span></div>";
+					echo '<a href="/BasketBaseWeb/pages/ajustes/partidos/anadir.php?equipo='.$_GET['equipo'].'"><button class="addPartido col-xs-10 col-sm-4 col-xs-offset-1 btn" style="background-color: '.$rowC["cami_loc"].'">Añadir partido</button></a>';
+					echo '<a href="/BasketBaseWeb/pages/ajustes/equipo/editar.php?equipo='.$_GET['equipo'].'"><button class="editEquipo col-xs-10 col-sm-4 col-xs-offset-1 btn" style="background-color: '.$rowC["cami_vis"].'">Editar equipo</button></a>';
+				?>
+
+				<table class="table table-striped table-hover table-responsive">
+					<thead>
+						<tr>
+							<th class='jornTit'>Jornada</th>
+							<th>Partido</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+							$qryP="SELECT p.codigo AS 'partido', (SELECT nombre FROM equipos WHERE codigo=local) AS local, (SELECT nombre FROM equipos WHERE codigo=visitante) AS visitante, cami_loc, cami_vis, resultado, jornada FROM equipos e join partidos p ON e.codigo=local or e.codigo=visitante WHERE e.codigo=".$_GET['equipo'];
+							$resP=mysqli_query($con, $qryP);
+							if(mysqli_num_rows($resP)>0){
+								while($rowP=mysqli_fetch_array($resP)){
+									echo "<tr not='".$rowP['codigo']."'>
+											  <td class='jornada'>".$rowP['jornada']."</td>
+											  <td>".$rowP['local']." ".$rowP['resultado']." ".$rowP['visitante']."</td>
+										  </tr>";
+								};
+							}
+							else{
+								echo "<tr>
+										  <td class='noResults' colspan='2'>No hay partidos.</td>
+									  </tr>";
+							}
+						?>
+					</tbody>
+				</table>
+				<?php
 				}
 
 				else{

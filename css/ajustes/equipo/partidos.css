@@ -1,0 +1,30 @@
+.addPartido, .editEquipo{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+table{
+	font-size: 16px; 
+}
+
+tbody tr:hover{
+	background-color: #ccc !important;
+	cursor: pointer;
+}
+
+.jornTit{
+	width: 100px !important;
+}
+
+.jornada{
+	vertical-align: middle !important;
+}
+
+.noResults{
+	text-align: center;
+}
+
+.noResults:hover{
+	cursor: auto;
+	background-color: #fff !important;
+}

@@ -18,12 +18,12 @@
 
 		<!--Custom CSS -->
 		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/styles.css" />
-		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/ajustes/equipo/anadir.css" />
+		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/ajustes/equipo/editar.css" />
 
 		<!-- Custom JS -->
 		<script type="text/javascript" src="/BasketBaseWeb/js/BasketBaseWeb.js"></script>
 		<script type="text/javascript" src="/BasketBaseWeb/js/menu.js"></script>
-		<script type="text/javascript" src="/BasketBaseWeb/js/ajustes/equipo/anadir.js"></script>
+		<script type="text/javascript" src="/BasketBaseWeb/js/ajustes/equipo/editar.js"></script>
 	</head>
 	<body>
 		<div id="header" class="col-xs-12">
@@ -114,6 +114,9 @@
 				$row=mysqli_fetch_assoc(mysqli_query($con, $consulta));
 
 				if($row!=null){
+					$qryE="SELECT * FROM equipos WHERE codigo=".$_GET['equipo'];
+					$resE=mysqli_query($con, $qryE) or die ($qryE);
+					$rowE=mysqli_fetch_assoc($resE);
 			?>
 				<form role="form">
 					<div id="nombre" class="form-group col-md-6 col-xs-12">
@@ -122,8 +125,10 @@
 							<span>* Nombre</span>
 							<span class="error nombre-lon">No puede quedar vacío.</span>
 						</label>
-						<input type="text" class="form-control" id="auth_nombre"
-						       placeholder="Introduce el nombre" maxlength="150">
+						<?php
+							echo '<input type="text" class="form-control" id="auth_nombre"
+						       placeholder="Introduce el nombre" maxlength="150" value="'.$rowE['nombre'].'">';
+						?>
 					</div>
 					<div id="hora" class="form-group col-md-6 col-xs-12">
 						<label class="hora" for="hora">
@@ -131,26 +136,35 @@
 							<span>Hora de juego</span>
 							<span class="error hora-format">Formato de hora incorrecto.</span>
 						</label>
-						<input type="text" class="form-control" id="auth_hora"
-						       placeholder="hh:MM" maxlength="5">
+						<?php
+							echo '<input type="text" class="form-control" id="auth_hora"
+						       placeholder="hh:MM" maxlength="5" value="'.$rowE['hora_juego'].'">';
+						?>
 					</div>
 					<div id="camiLoc" class="form-group col-md-6 col-xs-12">
 						<label class="camiLoc" for="camiLoc">
 							<span class="fa fa-globe" style="margin-right: 10px"></span>
 							<span>Color camiseta local</span>
 						</label>
-						<input type="color" class="form-control" id="auth_camiLoc">
+						<?php
+							echo '<input type="color" class="form-control" id="auth_camiLoc"
+						       value="'.$rowE['cami_loc'].'">';
+						?>
 					</div>
-					<div id="camiVIs" class="form-group col-md-6 col-xs-12">
-						<label class="camiVIs" for="camiVis">
+					<div id="camiVis" class="form-group col-md-6 col-xs-12">
+						<label class="camiVis" for="camiVis">
 							<span class="fa fa-globe" style="margin-right: 10px"></span>
 							<span>Color camiseta visitante</span>
 						</label>
-						<input type="color" class="form-control" id="auth_camiVis">
+						<?php
+							echo '<input type="color" class="form-control" id="auth_camiVis"
+						       value="'.$rowE['cami_vis'].'">';
+						?>
 					</div>
 					<span class="error campo-error" style="color: red"></span>
 					<span class="error bd-error" style="color: red">Ha ocurrido un error en el servidor. Vuelva a intentarlo más tarde. Disculpe las molestias.</span>
-					<button type="submit" class="btn btn-warning altaEquipo" disabled>Registrar equipo</button>
+					<button type="submit" class="btn btn-warning editaEquipo">Editar equipo</button>
+					<button class="btn btn-danger borraEquipo">Borrar equipo</button>
 				</form>
 			<?php
 				}
@@ -169,6 +183,27 @@
 			<a href="https://twitter.com/basketbaseapp" target="_blank"><span class="fa fa-twitter"></span></a>
 			<a href="https://facebook.com/basketbase" target="_blank"><span class="fa fa-facebook-official"></span></a>
 			<a href="https://www.youtube.com/channel/UCBXOEDHVG8lZKQxLU41Di3w" target="_blank"><span class="fa fa-youtube"></span></a>
+		</div>
+
+		<!--**********************   MODAL DELETE   ************************-->
+		<div class="modal fade modalDelete" tabindex="-1" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title">Borrar equipo</h4>
+					</div>
+					<div class="modal-body">
+						¿Estás seguro de que deseas eliminar este equipo? Ten en cuenta que no se podrá recuperar una vez lo confirmes.
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+						<button type="button" class="btn btn-primary confirm">Sí</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
