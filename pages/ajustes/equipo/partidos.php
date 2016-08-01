@@ -127,24 +127,26 @@
 					<thead>
 						<tr>
 							<th class='jornTit'>Jornada</th>
+							<th class='fechaTit'>Fecha</th>
 							<th>Partido</th>
 						</tr>
 					</thead>
 					<tbody>
 						<?php
-							$qryP="SELECT p.codigo AS 'partido', (SELECT nombre FROM equipos WHERE codigo=local) AS local, (SELECT nombre FROM equipos WHERE codigo=visitante) AS visitante, cami_loc, cami_vis, resultado, jornada FROM equipos e join partidos p ON e.codigo=local or e.codigo=visitante WHERE e.codigo=".$_GET['equipo'];
+							$qryP="SELECT p.codigo AS 'partido', (SELECT nombre FROM equipos WHERE codigo=local) AS local, (SELECT nombre FROM equipos WHERE codigo=visitante) AS visitante, cami_loc, cami_vis, resultado, jornada, fecha FROM equipos e join partidos p ON e.codigo=local or e.codigo=visitante WHERE e.codigo=".$_GET['equipo'];
 							$resP=mysqli_query($con, $qryP);
 							if(mysqli_num_rows($resP)>0){
 								while($rowP=mysqli_fetch_array($resP)){
-									echo "<tr not='".$rowP['codigo']."'>
+									echo "<tr part='".$rowP['partido']."'>
 											  <td class='jornada'>".$rowP['jornada']."</td>
-											  <td>".$rowP['local']." ".$rowP['resultado']." ".$rowP['visitante']."</td>
+											  <td class='fecha'>".$rowP['fecha']."</td>
+											  <td>".$rowP['local']." - ".$rowP['resultado']." ".$rowP['visitante']."</td>
 										  </tr>";
 								};
 							}
 							else{
 								echo "<tr>
-										  <td class='noResults' colspan='2'>No hay partidos.</td>
+										  <td class='noResults' colspan='3'>No hay partidos.</td>
 									  </tr>";
 							}
 						?>
@@ -167,6 +169,26 @@
 			<a href="https://twitter.com/basketbaseapp" target="_blank"><span class="fa fa-twitter"></span></a>
 			<a href="https://facebook.com/basketbase" target="_blank"><span class="fa fa-facebook-official"></span></a>
 			<a href="https://www.youtube.com/channel/UCBXOEDHVG8lZKQxLU41Di3w" target="_blank"><span class="fa fa-youtube"></span></a>
+		</div>
+
+		<div class="modal fade" tabindex="-1" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title">Adminisración del partido</h4>
+					</div>
+					<div class="modal-body">
+						<button type="button" class="btn btn-danger edit">Editar partido</button>
+						<button style='float:right' type="button" class="btn btn-warning add">Añadir resultado</button>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>

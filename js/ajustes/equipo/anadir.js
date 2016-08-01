@@ -18,10 +18,10 @@ $(function(){
 	$("#auth_hora").keyup(function(letter){
 		hora=$(this).val();
 		if(!$.isNumeric(letter.key)){
-			if(letter.key!=":" && letter.key!="Shift" && letter.key!="Alt" && letter.key!="Control" && letter.key!="AltGraph" && letter.key!="Backspace"){
+			if(letter.key!="Shift" && letter.key!="Alt" && letter.key!="Control" && letter.key!="AltGraph" && letter.key!="Backspace"){
 				$(this).val(hora.substr(0, hora.length-1));
 			}
-			else if(hora.length==1 && letter.key==":"){
+			else if(hora.length==1){
 				$(this).val(hora.substr(0, hora.length-1));
 			}
 		}

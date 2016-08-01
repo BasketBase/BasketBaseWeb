@@ -241,6 +241,7 @@ form .fa{
 
 .form-control{
 	border: 2px solid #ccc;
+	height: 34px !important;
 }
 
 /*Breadcrumbs*/

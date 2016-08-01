@@ -1,0 +1,22 @@
+#auth_local, #auth_vis{
+	width: initial;
+	height: auto !important;
+	margin-right: 10px;
+}
+
+#equipo div input{
+	display: inline-block;
+}
+
+.escoEquipo, .escoPabe{
+	margin-top: 15px;
+}
+
+.modalEquipo .equipo, .modalPabe .pabellon{
+	color: #3F51B5;
+}
+
+.modalEquipo .equipo:hover, .modalPabe .pabellon:hover{
+	color: #7381CE;
+	cursor: pointer;
+}

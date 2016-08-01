@@ -1,0 +1,16 @@
+#equipo div input{
+	display: inline-block;
+}
+
+.escoLocal, .escoVis, .escoPabe{
+	margin-top: 15px;
+}
+
+.modalEquipo .equipo, .modalPabe .pabellon{
+	color: #3F51B5;
+}
+
+.modalEquipo .equipo:hover, .modalPabe .pabellon:hover{
+	color: #7381CE;
+	cursor: pointer;
+}
