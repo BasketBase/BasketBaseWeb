@@ -140,7 +140,7 @@
 									echo "<tr part='".$rowP['partido']."'>
 											  <td class='jornada'>".$rowP['jornada']."</td>
 											  <td class='fecha'>".$rowP['fecha']."</td>
-											  <td>".$rowP['local']." - ".$rowP['resultado']." ".$rowP['visitante']."</td>
+											  <td>".$rowP['local']." - ".$rowP['visitante']." : <i>".$rowP['resultado']."</i></td>
 										  </tr>";
 								};
 							}
@@ -178,11 +178,32 @@
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
-						<h4 class="modal-title">Adminisración del partido</h4>
+						<h4 class="modal-title">Administración del partido</h4>
 					</div>
 					<div class="modal-body">
 						<button type="button" class="btn btn-danger edit">Editar partido</button>
 						<button style='float:right' type="button" class="btn btn-warning add">Añadir resultado</button>
+						<div class='result' hidden>
+							<div id="ptsLoc" class="form-group col-md-6 col-xs-12">
+								<label class="ptsLoc" for="ptsLoc">
+									<span class="fa fa-user" style="margin-right: 10px"></span>
+									<span>Puntos del equipo local:</span>
+									<span class="error ptsLoc-lon">No puede quedar vacío.</span>
+								</label>
+								<input type="number" class="form-control" id="auth_ptsLoc"
+								       placeholder="0" maxlength="3">
+							</div>
+							<div id="ptsVis" class="form-group col-md-6 col-xs-12">
+								<label class="ptsVis" for="ptsVis">
+									<span class="fa fa-user" style="margin-right: 10px"></span>
+									<span>* Puntos del equipo visitante:</span>
+									<span class="error ptsVis-lon">No puede quedar vacío.</span>
+								</label>
+								<input type="text" class="form-control" id="auth_ptsVis"
+								       placeholder="0" maxlength="3">
+							</div>
+							<button type="button" class="btn btn-danger addResult">Añadir</button>
+						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
