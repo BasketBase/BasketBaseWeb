@@ -1,7 +1,7 @@
 <?php
 	include "config.php";
 
-	if(isset($_COOKIE["user"]) || $_COOKIE["user"]!=null){
+	if(isset($_COOKIE["user"]) || isset($_COOKIE["user"])!=null){
 		$login=$_COOKIE["user"];
 		
 		$qry="SELECT * FROM usuarios

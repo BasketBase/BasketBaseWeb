@@ -104,7 +104,7 @@
 				<div class="titleA col-xs-offset-1 col-xs-11">ADMINISTRADOR</div>
 				<div class="elemA perClub col-sm-4 col-xs-12"><a href="/BasketBaseWeb/pages/ajustes/club.php">CLUB</a></div>
 				<div class="elemA perPatro col-sm-4 col-xs-12"><a href="/BasketBaseWeb/pages/ajustes/servicio.php">SERVICIO</a></div>
-				<div class="elemA perEve col-sm-4 col-xs-12"><a href="/BasketBaseWeb/pages/ajustes/evento.php">EVENTO</a></div>
+				<!--<div class="elemA perEve col-sm-4 col-xs-12"><a href="/BasketBaseWeb/pages/ajustes/evento.php">EVENTO</a></div>-->
 				<div class="elemA admin col-sm-4 col-xs-12"><a href="/BasketBaseWeb/pages/adminPabellon">PABELLONES</a></div>
 				<div class="elemA admin col-sm-4 col-xs-12"><a href="/BasketBaseWeb/pages/adminEntrena">ENTRENADORES</a></div>
 				<div class="elemA admin col-sm-4 col-xs-12"><a href="/BasketBaseWeb/pages/adminUsua">USUARIOS</a></div>
@@ -112,7 +112,7 @@
 
 			<div class="tables admin col-xs-12">
 				<div class="titleA col-xs-offset-1 col-xs-11">GESTIÓN</div>
-				<div class="elemA col-sm-4 col-xs-12"><a href="http://gestion.basketbaseweb.com">ACCEDER</a></div>
+				<div class="elemA col-sm-4 col-xs-12"><a target="_blank" href="http://gestion.basketbaseweb.com">ACCEDER</a></div>
 			</div>
 		</div>
 		<div id="foot" class="col-xs-12">

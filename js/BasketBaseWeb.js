@@ -66,3 +66,42 @@ var showAlert=function(text, status){
 var hideAlert=function(){
 	$(".alert").fadeOut("slow");
 }
+
+
+
+/*****************************************************     PERMISOS     *******************************************************/
+
+$(function(){
+	$.ajax({
+        type: 	'POST',
+        url: 	'/BasketBaseWeb/php/permisos/permisos.php',
+        data: 	""
+        ,success:function(data){
+        	console.log(data);
+        	switch(data){
+        		case "admin":
+        			$(".permiso").show();
+        			$(".perPatro").show();
+        			$(".perClub").show();
+        			$(".admin").show();
+        		break;
+        		case "1":
+        			$(".permiso").show();
+        			$(".perPatro").show();
+        		break;
+        		case "2":
+        			$(".permiso").show();
+        			$(".perClub").show();
+        		break;
+        		case "12":
+        			$(".permiso").show();
+        			$(".perPatro").show();
+        			$(".perClub").show();
+        		break;
+        	}
+        },
+        error: function(data){
+        	showAlert("<strong>¡ERROR!</strong> "+data, "danger");
+        }
+    });
+});
