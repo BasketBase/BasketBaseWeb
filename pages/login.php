@@ -111,7 +111,8 @@
 					</label>
 				</div>
 				<button type="submit" class="btn login" disabled>Entrar</button>
-				<a class="registro" href="/BasketBaseWeb/pages/registro">¿Aún no estás registrado?</a>
+				<button type="button" class="btn btn-info" onclick="location.href='http://localhost/BasketBaseWeb/';">Volver</button>
+				<a class="registro" href="/BasketBaseWeb/pages/registro.php">¿Aún no estás registrado?</a>
 			</form>
 		</div>
 		<div id="foot" class="col-xs-12">

@@ -151,6 +151,7 @@
 					<span class="error campo-error" style="color: red"></span>
 					<span class="error bd-error" style="color: red">Ha ocurrido un error en el servidor. Vuelva a intentarlo más tarde. Disculpe las molestias.</span>
 					<button type="submit" class="btn btn-warning altaEquipo" disabled>Registrar equipo</button>
+					<button type="button" class="btn btn-info" onclick="location.href=history.back();">Volver</button>
 				</form>
 			<?php
 				}
