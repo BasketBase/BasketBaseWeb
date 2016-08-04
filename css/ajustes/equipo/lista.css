@@ -39,4 +39,8 @@
 	#container{
 		left: 0;
 	}
+
+	.opciones{
+		margin-left: 25px;
+	}
 }
