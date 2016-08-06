@@ -38,24 +38,30 @@ $(function(){
 	        			errorInsert(data, nombre);
 	        		break;
 	        		default:
-	        			obj_file.append("nombre", nombre);
-	        			$.ajax({
-					        type: 	'POST',
-					        url: 	'/BasketBaseWeb/php/ajustes/club/logo.php',
-					        dataType: 'text',
-			                cache: false,
-			                contentType: false,
-			                processData: false,
-					        data: 	obj_file,
-					        success:function(data){
-					        	//window.location.href = "http://dev.basketbaseweb.com/pages/ajustes/equipo/lista.php?club="+location.search.split('club=')[1];
-					        	window.location.href = "http://localhost/BasketBaseWeb/pages/ajustes/equipo/lista.php?club="+location.search.split('club=')[1];
+	        			if(obj_file!=null){
+	        				obj_file.append("nombre", nombre);
+		        			$.ajax({
+						        type: 	'POST',
+						        url: 	'/BasketBaseWeb/php/ajustes/club/logo.php',
+						        dataType: 'text',
+				                cache: false,
+				                contentType: false,
+				                processData: false,
+						        data: 	obj_file,
+						        success:function(data){
+						        	//window.location.href = "http://dev.basketbaseweb.com/pages/ajustes/club/lista.php?prov="+cp;
+						        	window.location.href = "http://localhost/BasketBaseWeb/pages/ajustes/club/lista.php?prov="+cp;
 
-					        },
-					        error: function(data){
-					        	showAlert("<strong>¡ERROR!</strong> "+data, "danger");
-					        }
-					    });
+						        },
+						        error: function(data){
+						        	showAlert("<strong>¡ERROR!</strong> "+data, "danger");
+						        }
+						    });
+	        			}
+	        			else{
+	        				//window.location.href = "http://dev.basketbaseweb.com/pages/ajustes/club/lista.php?prov="+cp;
+						    window.location.href = "http://localhost/BasketBaseWeb/pages/ajustes/club/lista.php?prov="+cp;
+	        			}
 	        		break;
 	        	};
 	        },
