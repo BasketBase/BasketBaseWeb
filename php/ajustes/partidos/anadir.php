@@ -9,6 +9,14 @@
 	$jornada=$_POST['jornada'];
 	$pabellon=$_POST['pabellon'];
 
+	if($pabellon=="undefined"){
+		$pabellon="NULL";
+	}
+
+	if($jornada==""){
+		$jornada="NULL";
+	}
+
 	$qry="";
 	if($isLocal==true){
 		$qry="INSERT INTO partidos(local, visitante, fecha, hora, jornada, pabellon) VALUES (".$equipo.", ".$rival.", '".$fecha."', '".$hora."', ".$jornada.", ".$pabellon.")";
