@@ -32,7 +32,7 @@ $(function(){
 	        		"&cuerpo="+cuerpo+
 	        		"&tipoImg="+tipoImg
 	        ,success:function(club){
-	        	if(typeof(tipoImg)!='undefined'){
+	        	if(obj_file!=null){
 	        		obj_file.append("club", club);
 	    			$.ajax({
 				        type: 	'POST',
@@ -50,6 +50,10 @@ $(function(){
 				        	showAlert("<strong>¡ERROR!</strong> "+data, "danger");
 				        }
 				    });
+	        	}
+	        	else{
+	        		//window.location.href = "http://dev.basketbaseweb.com/pages/ajustes/club/noticias.php?club="+club;
+				    window.location.href = "http://localhost/BasketBaseWeb/pages/ajustes/club/noticias.php?club="+club;
 	        	}
 	        },
 	        error: function(data){

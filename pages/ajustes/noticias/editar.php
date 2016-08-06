@@ -114,7 +114,15 @@
 				$row=mysqli_fetch_assoc(mysqli_query($con, $consulta));
 
 				if($row!=null){
-					$qryN="SELECT codigo, titulo, subtitulo, cuerpo, url, imagen, n.club AS club FROM noticias n JOIN permiso_club pc ON n.club=pc.club WHERE dni='".$row['dni']."' AND codigo=".$_GET['noticia'];
+					$qryN="";
+
+					if($row['admin']==1){
+						$qryN="SELECT codigo, titulo, subtitulo, cuerpo, url, imagen, club FROM noticias WHERE codigo=".$_GET['noticia'];
+					}
+					else{
+						$qryN="SELECT codigo, titulo, subtitulo, cuerpo, url, imagen, n.club AS club FROM noticias n JOIN permiso_club pc ON n.club=pc.club WHERE dni='".$row['dni']."' AND codigo=".$_GET['noticia'];
+					}
+
 					$resN=mysqli_query($con, $qryN);
 
 					if(mysqli_num_rows($resN)>0){
