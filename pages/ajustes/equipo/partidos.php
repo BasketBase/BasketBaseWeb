@@ -123,35 +123,37 @@
 					echo '<a href="/BasketBaseWeb/pages/ajustes/equipo/editar.php?equipo='.$_GET['equipo'].'"><button class="editEquipo col-xs-10 col-sm-4 col-xs-offset-1 btn" style="background-color: '.$rowC["cami_vis"].'">Editar equipo</button></a>';
 				?>
 
-				<table class="table table-striped table-hover table-responsive">
-					<thead>
-						<tr>
-							<th class='jornTit'>Jornada</th>
-							<th class='fechaTit'>Fecha</th>
-							<th>Partido</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-							$qryP="SELECT p.codigo AS 'partido', (SELECT nombre FROM equipos WHERE codigo=local) AS local, (SELECT nombre FROM equipos WHERE codigo=visitante) AS visitante, cami_loc, cami_vis, resultado, jornada, fecha FROM equipos e join partidos p ON e.codigo=local or e.codigo=visitante WHERE e.codigo=".$_GET['equipo'];
-							$resP=mysqli_query($con, $qryP);
-							if(mysqli_num_rows($resP)>0){
-								while($rowP=mysqli_fetch_array($resP)){
-									echo "<tr part='".$rowP['partido']."'>
-											  <td class='jornada'>".$rowP['jornada']."</td>
-											  <td class='fecha'>".$rowP['fecha']."</td>
-											  <td>".$rowP['local']." - ".$rowP['visitante']." : <i>".$rowP['resultado']."</i></td>
+				<div class="table-responsive col-xs-12">
+					<table class="table table-striped table-hover table-responsive">
+						<thead>
+							<tr>
+								<th class='jornTit'>Jornada</th>
+								<th class='fechaTit'>Fecha</th>
+								<th>Partido</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+								$qryP="SELECT p.codigo AS 'partido', (SELECT nombre FROM equipos WHERE codigo=local) AS local, (SELECT nombre FROM equipos WHERE codigo=visitante) AS visitante, cami_loc, cami_vis, resultado, jornada, fecha FROM equipos e join partidos p ON e.codigo=local or e.codigo=visitante WHERE e.codigo=".$_GET['equipo'];
+								$resP=mysqli_query($con, $qryP);
+								if(mysqli_num_rows($resP)>0){
+									while($rowP=mysqli_fetch_array($resP)){
+										echo "<tr part='".$rowP['partido']."'>
+												  <td class='jornada'>".$rowP['jornada']."</td>
+												  <td class='fecha'>".$rowP['fecha']."</td>
+												  <td>".$rowP['local']." - ".$rowP['visitante']." : <i>".$rowP['resultado']."</i></td>
+											  </tr>";
+									};
+								}
+								else{
+									echo "<tr>
+											  <td class='noResults' colspan='3'>No hay partidos.</td>
 										  </tr>";
-								};
-							}
-							else{
-								echo "<tr>
-										  <td class='noResults' colspan='3'>No hay partidos.</td>
-									  </tr>";
-							}
-						?>
-					</tbody>
-				</table>
+								}
+							?>
+						</tbody>
+					</table>
+				</div>
 				<?php
 				}
 

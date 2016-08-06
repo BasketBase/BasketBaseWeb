@@ -121,7 +121,7 @@
 					echo "<div class='breadcrumbs'><a href='../club.php'>/</a><a href='../club/lista.php?prov=".$rowC['cp']."'>".utf8_encode($rowC['prov'])."</a><a href='../equipo/lista.php?club=".$_GET['club']."'>/".utf8_encode($rowC['club'])."</a></div>";
 					echo '<a href="/BasketBaseWeb/pages/ajustes/noticias/anadir.php?club='.$_GET['club'].'"><button class="addNotice col-xs-5 col-xs-offset-3 btn btn-primary">Añadir noticia</button></a>';
 				?>
-				<div class='table-responsive'>
+				<div class='table-responsive col-xs-12'>
 					<table class="table table-striped table-hover">
 						<thead>
 							<tr>
