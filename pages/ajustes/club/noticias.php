@@ -121,34 +121,35 @@
 					echo "<div class='breadcrumbs'><a href='../club.php'>/</a><a href='../club/lista.php?prov=".$rowC['cp']."'>".utf8_encode($rowC['prov'])."</a><a href='../equipo/lista.php?club=".$_GET['club']."'>/".utf8_encode($rowC['club'])."</a></div>";
 					echo '<a href="/BasketBaseWeb/pages/ajustes/noticias/anadir.php?club='.$_GET['club'].'"><button class="addNotice col-xs-5 col-xs-offset-3 btn btn-primary">Añadir noticia</button></a>';
 				?>
-
-				<table class="table table-striped table-hover table-responsive">
-					<thead>
-						<tr>
-							<th class='fechaTit'>Fecha</th>
-							<th>Título</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-							$qryN="SELECT * FROM noticias WHERE club=".$_GET["club"]." ORDER BY codigo desc";
-							$resN=mysqli_query($con, $qryN);
-							if(mysqli_num_rows($resN)>0){
-								while($rowN=mysqli_fetch_array($resN)){
-									echo "<tr not='".$rowN['codigo']."'>
-											  <td class='fecha'>".date("d-m-Y H:i", strtotime($rowN['fecha']))."</td>
-											  <td class='titulo'>".$rowN['titulo']."</td>
+				<div class='table-responsive'>
+					<table class="table table-striped table-hover">
+						<thead>
+							<tr>
+								<th class='fechaTit'>Fecha</th>
+								<th>Título</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+								$qryN="SELECT * FROM noticias WHERE club=".$_GET["club"]." ORDER BY codigo desc";
+								$resN=mysqli_query($con, $qryN);
+								if(mysqli_num_rows($resN)>0){
+									while($rowN=mysqli_fetch_array($resN)){
+										echo "<tr not='".$rowN['codigo']."'>
+												  <td class='fecha'>".date("d-m-Y H:i", strtotime($rowN['fecha']))."</td>
+												  <td class='titulo'>".$rowN['titulo']."</td>
+											  </tr>";
+									};
+								}
+								else{
+									echo "<tr>
+											  <td class='noResults' colspan='2'>No hay noticias.</td>
 										  </tr>";
-								};
-							}
-							else{
-								echo "<tr>
-										  <td class='noResults' colspan='2'>No hay noticias.</td>
-									  </tr>";
-							}
-						?>
-					</tbody>
-				</table>
+								}
+							?>
+						</tbody>
+					</table>
+				</div>
 				<?php
 				}
 
