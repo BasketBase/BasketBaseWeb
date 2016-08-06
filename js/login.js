@@ -34,6 +34,7 @@ $(function(){
 	        		"&pass="+pass+
 	        		"&noClose="+$("#no-close input").prop('checked')
 	        ,success:function(data){
+	        	console.log(data);
 	        	switch(data){
 	        		case "400":
 	        			showError(".pass-error", "#pass");

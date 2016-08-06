@@ -14,7 +14,7 @@
 			}
 		}
 		else{
-			login($login, $pass);
+			login(utf8_encode($login), $pass);
 		}
 	}
 	else{
@@ -24,7 +24,7 @@
 
 	function buscar_campo($campo, $valor){
 		include "config.php";
-		
+
 		$qry="SELECT ".$campo." FROM usuarios WHERE ".$campo." = '".$valor."'";
 		$res=mysqli_query($con, $qry) or die ($qry);
 
@@ -37,6 +37,7 @@
 
 	function login($login, $pass){
 		include "config.php";
+		$acentos = $con->query("SET NAMES 'utf8'");
 		$qry="SELECT * FROM usuarios
 			WHERE (
 				dni = '".$login."' OR
