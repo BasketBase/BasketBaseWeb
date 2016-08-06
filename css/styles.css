@@ -244,6 +244,12 @@ form .fa{
 	height: 34px !important;
 }
 
+textarea.form-control{
+	height: auto !important;
+	resize: none;
+}
+
+
 /*Breadcrumbs*/
 
 .breadcrumbs{

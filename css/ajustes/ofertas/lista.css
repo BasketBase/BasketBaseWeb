@@ -1,0 +1,64 @@
+table{
+	font-size: 16px; 
+}
+
+tbody tr:hover{
+	background-color: #ccc !important;
+	cursor: pointer;
+}
+
+.fechaTit{
+	width: 170px !important;
+}
+
+.fecha{
+	vertical-align: middle !important;
+}
+
+.noResults{
+	text-align: center;
+}
+
+.noResults:hover{
+	cursor: auto;
+	background-color: #fff !important;
+}
+
+.opciones{
+	margin-top: 10px;
+	text-align:center;
+}
+
+.opciones .btn{
+	width: 90%;
+}
+
+#contOfertas{
+	margin-top: 20px;
+	font-size: 17px;
+	height: 50px !important;
+	margin-bottom: 5px;
+}
+.ofertasItem{
+	text-align: center;
+}
+
+.modal *{
+	height: auto;
+}
+
+@media (max-width: 700px) {
+	#container{
+		left: 0;
+	}
+}
+
+@media (max-width: 400px) {
+	#container{
+		left: 0;
+	}
+
+	.opciones{
+		margin-left: 25px;
+	}
+}

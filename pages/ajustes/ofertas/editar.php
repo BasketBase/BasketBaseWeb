@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ES">
+	<head>
+		<title>Basket Base</title>
+
+		<meta charset="UTF-8" />
+		<meta content="Basket Base, baloncesto, deporte" />
+		<meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
+		<meta name="theme-color" content="#3F51B5"/>
+
+		<link rel="icon" type="image/png" href="/BasketBaseWeb/img/favicon.png" size="192x192"/>
+
+		<!--Libraries-->
+		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/lib/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/lib/font-awesome.min.css" />
+		<script type="text/javascript" src='/BasketBaseWeb/lib/jquery-1.11.3.min.js'></script>
+		<script type="text/javascript" src='/BasketBaseWeb/lib/bootstrap.min.js'></script>
+
+		<!--Custom CSS -->
+		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/styles.css" />
+		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/ajustes/ofertas/editar.css" />
+
+		<!-- Custom JS -->
+		<script type="text/javascript" src="/BasketBaseWeb/js/BasketBaseWeb.js"></script>
+		<script type="text/javascript" src="/BasketBaseWeb/js/menu.js"></script>
+		<script type="text/javascript" src="/BasketBaseWeb/js/ajustes/ofertas/editar.js"></script>
+	</head>
+	<body>
+		<div id="header" class="col-xs-12">
+			<span class="img-titulo">
+				<img style="padding: 5px" src="/BasketBaseWeb/img/logo.png">
+			</span>
+			
+			<span class="titulo">BASKET BASE</span>
+		</div>
+		<div id="menu">
+			<a href="/BasketBaseWeb/">
+				<div class="item-menu">
+					<span class="img-item-menu glyphicon glyphicon-home"></span>
+					<span class="tit-item-menu">Inicio</span>
+				</div>
+			</a>
+			<a href="/BasketBaseWeb/pages/clubs.php">
+				<div class="item-menu">
+					<span class="img-item-menu glyphicon glyphicon-asterisk"></span>
+					<span class="tit-item-menu">Clubs</span>
+				</div>
+			</a>
+			<a href="/BasketBaseWeb/pages/calendario.php">
+				<div class="item-menu">
+					<span class="img-item-menu glyphicon glyphicon-calendar"></span>
+					<span class="tit-item-menu">Calendario</span>
+				</div>
+			</a>
+			<a href="/BasketBaseWeb/pages/servicios.php">
+				<div class="item-menu">
+					<span class="img-item-menu glyphicon glyphicon-briefcase"></span>
+					<span class="tit-item-menu">Servicios Asociados</span>
+				</div>
+			</a>
+			<a href="/BasketBaseWeb/pages/promos.php">
+				<div class="item-menu">
+					<span class="img-item-menu glyphicon glyphicon-picture"></span>
+					<span class="tit-item-menu">Promociones</span>
+				</div>
+			</a>
+			<a href="/BasketBaseWeb/pages/ajustes.php">
+				<div class="item-menu ajustes">
+					<span class="img-item-menu glyphicon glyphicon-cog"></span>
+					<span class="tit-item-menu">Ajustes</span>
+				</div>
+			</a>
+			<a class="login-link" href="/BasketBaseWeb/pages/login.php">
+				<div class="item-menu">
+					<span class="img-item-menu glyphicon glyphicon-log-in"></span>
+					<span class="tit-item-menu">Iniciar sesión</span>
+				</div>
+			</a>
+			<div class="user-menu">
+				<img class="user-image" src="">
+				<div class="user-name">
+					<?php 
+						if(isset($_COOKIE["showable"])){
+							echo $_COOKIE["showable"]; 
+						}
+						else{
+							echo 'ERROR';
+						}
+					?>
+				</div>
+				<div class="close-session">
+					<span class="glyphicon glyphicon-remove"></span>
+					<span id="cerrarSesion">Cerrar sesión</span>
+				</div>
+			</div>
+		</div>
+		<div id="container" class="col-xs-12">
+			<?php
+				include "../../../php/config.php";
+				$login="";
+				if(isset($_COOKIE["user"])){
+					$login=$_COOKIE["user"];
+				}
+				else{
+					header("Location: http://localhost/errors/403.html");
+					exit();
+				}
+
+				$consulta="SELECT * FROM usuarios
+						   WHERE dni = '".$login."'
+						   OR 	 nick = '".$login."'
+						   OR 	 email = '".$login."'";
+
+				$row=mysqli_fetch_assoc(mysqli_query($con, $consulta));
+
+				if($row!=null){
+					$qry="SELECT * FROM ofertas WHERE codigo=".$_GET["oferta"];
+					$rowO=mysqli_fetch_assoc(mysqli_query($con, $qry));
+			?>
+				<form role="form">
+					<div id="mensaje" class="form-group col-xs-12">
+						<label class="mensaje" for="mensaje">
+							<span class="fa fa-user" style="margin-right: 10px"></span>
+							<span>* Mensaje</span>
+							<span class="error mensaje-lon">No puede quedar vacío.</span>
+						</label>
+						<?php
+							echo '<textarea type="text" class="form-control" id="auth_mensaje"
+						       placeholder="Introduce el mensaje" maxlength="1000" rows="2" value="'.utf8_encode($rowO['mensaje']).'">'.utf8_encode($rowO['mensaje']).'</textarea>';
+						?>
+					</div>
+					<div id="url" class="form-group col-md-6 col-xs-12">
+						<label class="url" for="url">
+							<span class="fa fa-street-view" style="margin-right: 10px"></span>
+							<span>Dirección web</span>
+						</label>
+						<?php
+							echo '<input type="text" class="form-control" id="auth_url"
+						       placeholder="Introduce la dirección web..." maxlength="255" value="'.$rowO['url'].'">';
+						?>
+					</div>
+					<div id="fechaFin" class="form-group col-md-6 col-xs-12">
+						<label class="fechaFin" for="fechaFin">
+							<span class="fa fa-globe" style="margin-right: 10px"></span>
+							<span>Fecha Fin</span>
+						</label>
+						<?php
+							echo '<input type="text" class="form-control" id="auth_fechaFin"
+							   placeholder="Introduce la fecha de fin..." maxlength="10" value="'.$rowO['fecha_fin'].'">';
+						?>
+					</div>
+					<div id="imagen" class="form-group col-xs-12">
+						<label class="imagen" for="imagen">
+							<span class="fa fa-image" style="margin-right: 10px"></span>
+							<span>Imagen</span>
+						</label>
+						<input name="imagen" type="file" class="form-control" id="auth_imagen"/>
+					</div>
+					<span class="error campo-error" style="color: red"></span>
+					<span class="error bd-error" style="color: red">Ha ocurrido un error en el servidor. Vuelva a intentarlo más tarde. Disculpe las molestias.</span>
+					<button type="submit" class="btn btn-warning editOferta">Cambiar Oferta</button>
+					<button class="btn btn-danger deleteOfe">Borrar oferta</button>
+					<button type="button" class="btn btn-info" onclick="location.href=history.back();">Volver</button>
+				</form>
+			<?php
+				}
+
+				else{
+					header("Location: http://localhost/errors/500.html");
+					exit();
+				}
+			?>
+		</div>
+		<div id="foot" class="col-xs-12">
+			<span class="cbb"><span style="font-size: 23px;float:left; margin-top: -5px; margin-right: 5px;">®</span> BASKET BASE</span>
+			<span class="item-foot">Contacto</span>
+			<span class="item-foot">Colabora</span>
+			<span class="item-foot">Aviso legal</span>
+			<a href="https://twitter.com/basketbaseapp" target="_blank"><span class="fa fa-twitter"></span></a>
+			<a href="https://facebook.com/basketbase" target="_blank"><span class="fa fa-facebook-official"></span></a>
+			<a href="https://www.youtube.com/channel/UCBXOEDHVG8lZKQxLU41Di3w" target="_blank"><span class="fa fa-youtube"></span></a>
+		</div>
+
+		<!--**********************   MODAL DELETE   ************************-->
+		<div class="modal fade modalDelete" tabindex="-1" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title">Borrar oferta</h4>
+					</div>
+					<div class="modal-body">
+						¿Estás seguro de que deseas eliminar esta oferta? Ten en cuenta que no se podrá recuperar una vez confirmes.
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+						<button type="button" class="btn btn-primary confirm">Sí</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
