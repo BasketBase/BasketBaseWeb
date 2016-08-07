@@ -141,7 +141,7 @@
 										echo "<tr part='".$rowP['partido']."'>
 												  <td class='jornada'>".$rowP['jornada']."</td>
 												  <td class='fecha'>".$rowP['fecha']."</td>
-												  <td>".$rowP['local']." - ".$rowP['visitante']." : <i>".$rowP['resultado']."</i></td>
+												  <td>".utf8_encode($rowP['local'])." - ".utf8_encode($rowP['visitante'])." : <i>".$rowP['resultado']."</i></td>
 											  </tr>";
 									};
 								}

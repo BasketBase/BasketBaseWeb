@@ -160,7 +160,7 @@
 								while($rowO=mysqli_fetch_array($res)){
 									echo "<tr ofe='".$rowO['codigo']."'>
 											  <td class='fecha'>".$rowO['fecha_fin']."</td>
-											  <td class='titulo'>".$rowO['mensaje']."</td>
+											  <td class='titulo'>".utf8_encode($rowO['mensaje'])."</td>
 										  </tr>";
 								};
 							}

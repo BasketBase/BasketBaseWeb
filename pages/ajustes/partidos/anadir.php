@@ -122,7 +122,7 @@
 					<div id="equipo" class="form-group col-md-6 col-xs-12">
 						<label class="equipo" for="equipo">
 							<span class="fa fa-user" style="margin-right: 10px"></span>
-							<span>* <?php echo $rowE["nombre"] ?>, ¿local o visitante?</span>
+							<span>* <?php echo utf8_encode($rowE["nombre"]); ?>, ¿local o visitante?</span>
 						</label>
 						<div><input type="radio" name='equipo' class="form-control" id="auth_local" checked>Local</div>
 						<div><input type="radio" name='equipo' class="form-control" id="auth_vis">Visitante</div>
@@ -216,7 +216,7 @@
 
 									if(mysqli_num_rows($res)>0){
 										while($row=mysqli_fetch_array($res)){
-											echo "<tr class='equipo' cod='".$row['codigo']."'><td>".$row['nombre']."</td></tr>";
+											echo "<tr class='equipo' cod='".$row['codigo']."'><td>".utf8_encode($row['nombre'])."</td></tr>";
 										}
 									}
 									else{

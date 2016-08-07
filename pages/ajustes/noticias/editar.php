@@ -180,7 +180,7 @@
 						</label>
 						<?php
 							echo '<textarea type="text" class="form-control" id="auth_cuerpo"
-						       placeholder="Escribe el cuerpo aquí..." maxlength="10000" rows="6" value="'.utf8_encode($rowN['cuerpo']).'"></textarea>';
+						       placeholder="Escribe el cuerpo aquí..." maxlength="10000" rows="6" value="'.utf8_encode($rowN['cuerpo']).'">'.utf8_encode($rowN['cuerpo']).'</textarea>';
 						?>
 					</div>
 					<span class="error campo-error" style="color: red"></span>

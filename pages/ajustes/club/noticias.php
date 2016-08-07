@@ -137,7 +137,7 @@
 									while($rowN=mysqli_fetch_array($resN)){
 										echo "<tr not='".$rowN['codigo']."'>
 												  <td class='fecha'>".date("d-m-Y H:i", strtotime($rowN['fecha']))."</td>
-												  <td class='titulo'>".$rowN['titulo']."</td>
+												  <td class='titulo'>".utf8_encode($rowN['titulo'])."</td>
 											  </tr>";
 									};
 								}
