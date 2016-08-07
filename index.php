@@ -21,7 +21,9 @@
 		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/index.css" />
 
 		<!-- Custom JS -->
+		<script type="text/javascript" src="/BasketBaseWeb/js/BasketBaseWeb.js"></script>
 		<script type="text/javascript" src="/BasketBaseWeb/js/menu.js"></script>
+		<script type="text/javascript" src="/BasketBaseWeb/js/index.js"></script>
 	</head>
 	<body>
 		<div id="header" class="col-xs-12">
@@ -91,7 +93,33 @@
 			</div>
 		</div>
 		<div id="container" class="col-xs-12">
-			
+			<?php
+				include "php/config.php";
+
+				$qry="SELECT n.codigo as noticia, titulo, imagen, c.nombre as club FROM noticias n join clubs c on club=c.codigo";
+				$res=mysqli_query($con, $qry);
+
+				while($row=mysqli_fetch_array($res)){
+					echo '<div class="col-xs-12 col-sm-6 noti" codigo="'.$row["noticia"].'">';
+			?>
+						<div class='imgNot'>
+							<!--<?php
+								/*if($row["imagen"]!=null && $row["imagen"]!=""){
+									echo "<img src='/BasketBaseWeb/img/noticias/".$row["club"]."/".$row["imagen"]."' />";
+								}
+								else{
+									echo "<img src='/BasketBaseWeb/img/user/noImage.jpg' />";
+								}*/
+							?>-->
+							<img src='/BasketBaseWeb/img/user/noImage.jpg' />
+						</div>
+						<div class='titNot'>
+							<?php echo utf8_encode($row["titulo"]); ?>
+						</div>
+					</div>
+			<?php
+				}
+			?>
 		</div>
 		<div id="foot" class="col-xs-12">
 			<span class="cbb"><span style="font-size: 23px;float:left; margin-top: -5px; margin-right: 5px;">®</span> BASKET BASE</span>

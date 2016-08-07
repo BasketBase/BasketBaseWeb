@@ -1,0 +1,23 @@
+#container{
+	text-align: center;
+	overflow-y: scroll;
+}
+
+.noti{
+	margin-top: 30px;
+	min-height: 450px !important;
+}
+
+.imgNot img{
+	width: 300px;
+}
+
+.titNot{
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.noti:hover{
+	cursor: pointer;
+	opacity: 0.6;
+}

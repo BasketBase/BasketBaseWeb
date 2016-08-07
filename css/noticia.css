@@ -1,0 +1,23 @@
+.noti{
+	margin: 50px;
+}
+
+.imgNot{
+	text-align: center;
+	margin-left: -50px;
+}
+
+.titNot{
+	font-size: 30px;
+	font-weight: bolder;
+}
+
+.subtitNot{
+	font-size: 18px;
+	color: #ccc;
+}
+
+.cuerpoNot{
+	font-size: 15px;
+	text-indent: 5px;
+}
