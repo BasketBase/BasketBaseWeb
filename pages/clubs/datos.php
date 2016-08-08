@@ -106,8 +106,8 @@
 			?>
 			<div class='col-xs-12' style='text-align:center'>
 				<?php
-					if($row["logo"]!=""){
-						echo "<img style='width: 200px; height: 200px; margin-bottom: 30px;' src='/BasketBaseWeb/img/clubs/".$row["logo"]."'/>";
+					if($rowC["logo"]!=""){
+						echo "<img style='width: 200px; height: 200px; margin-bottom: 30px;' src='/BasketBaseWeb/img/clubs/".$rowC["logo"]."'/>";
 					}
 					else{
 						echo "<img style='width: 200px; height: 200px; margin-bottom: 30px;' src='/BasketBaseWeb/img/user/noImage.jpg'/>";
