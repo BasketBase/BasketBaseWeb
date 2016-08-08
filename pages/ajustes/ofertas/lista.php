@@ -216,10 +216,10 @@
 
 							while($row=mysqli_fetch_array($res)){
 								if($row['patrocinador']!=null){
-									echo "<div class='col-sm-3 col-xs-6'><input checked type='checkbox' value='".$row["dni"]."' />".$row["nick"]."</div>";
+									echo "<div class='col-sm-3 col-xs-6'><input checked type='checkbox' value='".$row["dni"]."' />".utf8_encode($row["nick"])."</div>";
 								}
 								else{
-									echo "<div class='col-sm-3 col-xs-6'><input type='checkbox' value='".$row["dni"]."' />".$row["nick"]."</div>";
+									echo "<div class='col-sm-3 col-xs-6'><input type='checkbox' value='".$row["dni"]."' />".utf8_encode($row["nick"])."</div>";
 								}
 							};
 						?>

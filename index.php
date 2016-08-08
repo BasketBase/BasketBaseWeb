@@ -94,6 +94,11 @@
 		</div>
 		<div id="container" class="col-xs-12">
 			<?php
+				$ip = $_SERVER['REMOTE_ADDR'];
+				$details = json_decode(file_get_contents("http://ipinfo.io/".$ip));
+				//echo "{$details->postal}";
+				//var_dump($details);
+
 				include "php/config.php";
 
 				$qry="SELECT n.codigo as noticia, titulo, imagen, c.nombre as club FROM noticias n join clubs c on club=c.codigo";
