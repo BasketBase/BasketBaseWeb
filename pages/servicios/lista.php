@@ -96,99 +96,46 @@
 		</div>
 		<div id="container" class="col-xs-12">
 			<?php
-				include "../../../php/config.php";
-				$login="";
-				if(isset($_COOKIE["user"])){
-					$login=$_COOKIE["user"];
+				include "../../php/config.php";
+				$consulta="SELECT * FROM provincias WHERE cp = ".$_GET['prov'];
+
+				$rowP=mysqli_fetch_assoc(mysqli_query($con, $consulta));
+
+				echo "<div class='breadcrumbs'><a href='../servicios.php'>/</a><span>".utf8_encode($rowP['nombre'])."</span></div>";
+
+				$consulta="SELECT * FROM patrocinadores WHERE provincia=".$_GET["prov"]." ORDER BY nombre";
+
+				$res=mysqli_query($con, $consulta) or die ("Error en el servidor");
+
+				if(mysqli_num_rows($res)>0){
+					echo '<input type="text" id="seeker" placeholder="Busca un servicio..."/>';
 				}
 				else{
-					header("Location: http://localhost/errors/403.html");
-					exit();
+					echo '<input type="text" id="seeker" placeholder="Busca un servicio..." disabled/>';
 				}
-
-				$consulta="SELECT * FROM usuarios
-						   WHERE dni = '".$login."'
-						   OR 	 nick = '".$login."'
-						   OR 	 email = '".$login."'";
-
-				$row=mysqli_fetch_assoc(mysqli_query($con, $consulta));
-
-				if($row!=null){
-					$consulta="SELECT * FROM provincias WHERE cp = ".$_GET['prov'];
-
-					$rowP=mysqli_fetch_assoc(mysqli_query($con, $consulta));
-
-					echo "<div class='breadcrumbs'><a href='../servicio.php'>/</a><span>".utf8_encode($rowP['nombre'])."</span></div>";
-
-					$res="";
-
-					if($row["admin"]!=1){
-						$sub="SELECT patrocinador FROM permiso_patro WHERE dni='".$row['dni']."'";
-						$consulta="SELECT * FROM patrocinadores WHERE provincia=".$_GET["prov"]." AND codigo IN (".$sub.")";
-
-						$res=mysqli_query($con, $consulta);
-					}
-					else{
-						$consulta="SELECT * FROM patrocinadores WHERE provincia=".$_GET["prov"];
-
-						$res=mysqli_query($con, $consulta);
-					}
-
-					if(mysqli_num_rows($res)>0){
-						echo '<input type="text" id="seeker" placeholder="Busca tu servicio..."/>';
-					}
-					else{
-						echo '<input type="text" id="seeker" placeholder="Busca tu servicio..." disabled/>';
-					}
 			?>
-				<table class="table table-responsive table-hover results">
-					<tbody>
-						
-					</tbody>
-				</table>
-				<div id="contServicios">
-					<?php
-						while($rowP=mysqli_fetch_array($res)){
-							$imagen="/img/user/noImage.jpg";
-							if($rowP["imagen"]!=null){
-								$imagen="/img/patros/".$rowP["imagen"];
-							}
-
-							echo 	"<a class='
-											servisItem 
-											col-xs-offset-2
-											col-sm-offset-1 
-											col-md-2
-											col-sm-3
-											col-xs-4'
-											href='/BasketBaseWeb/pages/ajustes/ofertas/lista.php?patro=".$rowP["codigo"]."'>
-												<img class='imgServi' src='/BasketBaseWeb".$imagen."'/>
-												<div class='nomServi'>".utf8_encode($rowP["nombre"])."</div>
-									</a>";
-						};
-						if($row["admin"]!=0){
-							echo "<a class='
-										servisItem
-										subir
+			<table class="table table-responsive table-hover results">
+				<tbody>
+					
+				</tbody>
+			</table>
+			<div id="contServicios">
+				<?php
+					while($rowC=mysqli_fetch_array($res)){
+						echo 	"<a class='
+										servisItem 
 										col-xs-offset-2
 										col-sm-offset-1 
 										col-md-2
 										col-sm-3
 										col-xs-4'
-									href='/BasketBaseWeb/pages/ajustes/servicio/anadir.php?prov=".$_GET["prov"]."'>
-									<span class='fa fa-plus' aria-hidden='true'></span>
+										href='/BasketBaseWeb/pages/servicios/datos.php?ser=".$rowC["codigo"]."'>
+											<img class='imgServi' src='/BasketBaseWeb/img/user/noImage.jpg'/>
+											<div class='nomServi'>".utf8_encode($rowC["nombre"])."</div>
 								</a>";
-						}
-					?>
-				</div>
-			<?php
-				}
-
-				else{
-					header("Location: http://localhost/errors/500.html");
-					exit();
-				}
-			?>
+					};
+				?>
+			</div>
 		</div>
 		<div id="foot" class="col-xs-12">
 			<span class="cbb"><span style="font-size: 23px;float:left; margin-top: -5px; margin-right: 5px;">®</span> BASKET BASE</span>

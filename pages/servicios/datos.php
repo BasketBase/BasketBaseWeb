@@ -18,12 +18,12 @@
 
 		<!--Custom CSS -->
 		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/styles.css" />
-		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/ajustes/servicio/lista.css" />
+		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/ajustes/equipo/lista.css" />
 
 		<!-- Custom JS -->
 		<script type="text/javascript" src="/BasketBaseWeb/js/BasketBaseWeb.js"></script>
 		<script type="text/javascript" src="/BasketBaseWeb/js/menu.js"></script>
-		<script type="text/javascript" src="/BasketBaseWeb/js/ajustes/servicio/lista.js"></script>
+		<script type="text/javascript" src="/BasketBaseWeb/js/ajustes/equipo/lista.js"></script>
 	</head>
 	<body>
 		<div id="header" class="col-xs-12">
@@ -96,99 +96,69 @@
 		</div>
 		<div id="container" class="col-xs-12">
 			<?php
-				include "../../../php/config.php";
-				$login="";
-				if(isset($_COOKIE["user"])){
-					$login=$_COOKIE["user"];
-				}
-				else{
-					header("Location: http://localhost/errors/403.html");
-					exit();
-				}
+				include "../../php/config.php";
 
-				$consulta="SELECT * FROM usuarios
-						   WHERE dni = '".$login."'
-						   OR 	 nick = '".$login."'
-						   OR 	 email = '".$login."'";
+				$consulta="SELECT cp, p.nombre prov, pa.nombre servicio, url, facebook, sector, imagen FROM patrocinadores pa join provincias p ON pa.provincia=p.cp WHERE pa.codigo=".$_GET['ser'];
 
-				$row=mysqli_fetch_assoc(mysqli_query($con, $consulta));
+				$rowC=mysqli_fetch_assoc(mysqli_query($con, $consulta));
 
-				if($row!=null){
-					$consulta="SELECT * FROM provincias WHERE cp = ".$_GET['prov'];
-
-					$rowP=mysqli_fetch_assoc(mysqli_query($con, $consulta));
-
-					echo "<div class='breadcrumbs'><a href='../servicio.php'>/</a><span>".utf8_encode($rowP['nombre'])."</span></div>";
-
-					$res="";
-
-					if($row["admin"]!=1){
-						$sub="SELECT patrocinador FROM permiso_patro WHERE dni='".$row['dni']."'";
-						$consulta="SELECT * FROM patrocinadores WHERE provincia=".$_GET["prov"]." AND codigo IN (".$sub.")";
-
-						$res=mysqli_query($con, $consulta);
-					}
-					else{
-						$consulta="SELECT * FROM patrocinadores WHERE provincia=".$_GET["prov"];
-
-						$res=mysqli_query($con, $consulta);
-					}
-
-					if(mysqli_num_rows($res)>0){
-						echo '<input type="text" id="seeker" placeholder="Busca tu servicio..."/>';
-					}
-					else{
-						echo '<input type="text" id="seeker" placeholder="Busca tu servicio..." disabled/>';
-					}
+				echo "<div class='breadcrumbs'><a href='../servicios.php'>/</a><a href='lista.php?prov=".$rowC['cp']."'>".utf8_encode($rowC['prov'])."</a><span>/".utf8_encode($rowC['servicio'])."</span></div>";
 			?>
-				<table class="table table-responsive table-hover results">
+			<div class='col-xs-12' style='text-align:center'>
+				<?php
+					if($rowC["logo"]!=""){
+						echo "<img style='width: 200px; height: 200px; margin-bottom: 30px;' src='/BasketBaseWeb/img/servicios/".$rowC["imagen"]."'/>";
+					}
+					else{
+						echo "<img style='width: 200px; height: 200px; margin-bottom: 30px;' src='/BasketBaseWeb/img/user/noImage.jpg'/>";
+					}
+				?>
+			</div>
+			<div class='col-xs-12 col-sm-6 col-md-4'>
+				<strong>Nombre: </strong><?php echo utf8_encode($rowC["servicio"])?>
+			</div>
+			<div class='col-xs-12 col-sm-6 col-md-4'>
+				<strong>Dirección web: </strong><?php echo $rowC["url"]?>
+			</div>
+			<div class='col-xs-12 col-sm-6 col-md-4'>
+				<strong>Facebook: </strong><?php echo utf8_encode($rowC["facebook"])?>
+			</div>
+			<div class='col-xs-12 col-sm-6 col-md-4'>
+				<strong>Sector: </strong><?php echo $rowC["sector"]?>
+			</div>
+
+			<div class="table-responsive col-xs-12">
+				<table class="table table-striped table-hover table-responsive" style='margin-top: 40px'>
+					<thead>
+						<tr>
+							<th>Fecha</th>
+							<th>Mensaje</th>
+						</tr>
+					</thead>
 					<tbody>
-						
+						<?php
+							$qryE="SELECT * FROM ofertas WHERE patrocinador=".$_GET['ser'];
+
+							$resE=mysqli_query($con, $qryE);
+							if(mysqli_num_rows($resE)>0){
+								while($rowE=mysqli_fetch_array($resE)){
+									echo "<tr>
+											  <td style='width: 170px'>".$rowE['fecha_inicio']."</td>
+											  <td>".utf8_encode($rowE['mensaje'])."</td>
+										  </tr>";
+
+									echo '';
+								}
+							}
+							else{
+								echo "<tr>
+										  <td class='noResults' colspan='2'>No hay ofertas.</td>
+									  </tr>";
+							}
+						?>
 					</tbody>
 				</table>
-				<div id="contServicios">
-					<?php
-						while($rowP=mysqli_fetch_array($res)){
-							$imagen="/img/user/noImage.jpg";
-							if($rowP["imagen"]!=null){
-								$imagen="/img/patros/".$rowP["imagen"];
-							}
-
-							echo 	"<a class='
-											servisItem 
-											col-xs-offset-2
-											col-sm-offset-1 
-											col-md-2
-											col-sm-3
-											col-xs-4'
-											href='/BasketBaseWeb/pages/ajustes/ofertas/lista.php?patro=".$rowP["codigo"]."'>
-												<img class='imgServi' src='/BasketBaseWeb".$imagen."'/>
-												<div class='nomServi'>".utf8_encode($rowP["nombre"])."</div>
-									</a>";
-						};
-						if($row["admin"]!=0){
-							echo "<a class='
-										servisItem
-										subir
-										col-xs-offset-2
-										col-sm-offset-1 
-										col-md-2
-										col-sm-3
-										col-xs-4'
-									href='/BasketBaseWeb/pages/ajustes/servicio/anadir.php?prov=".$_GET["prov"]."'>
-									<span class='fa fa-plus' aria-hidden='true'></span>
-								</a>";
-						}
-					?>
-				</div>
-			<?php
-				}
-
-				else{
-					header("Location: http://localhost/errors/500.html");
-					exit();
-				}
-			?>
+			</div>
 		</div>
 		<div id="foot" class="col-xs-12">
 			<span class="cbb"><span style="font-size: 23px;float:left; margin-top: -5px; margin-right: 5px;">®</span> BASKET BASE</span>

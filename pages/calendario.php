@@ -18,12 +18,12 @@
 
 		<!--Custom CSS -->
 		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/styles.css" />
-		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/ajustes/servicio/lista.css" />
+		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/ajustes/club.css" />
 
 		<!-- Custom JS -->
 		<script type="text/javascript" src="/BasketBaseWeb/js/BasketBaseWeb.js"></script>
 		<script type="text/javascript" src="/BasketBaseWeb/js/menu.js"></script>
-		<script type="text/javascript" src="/BasketBaseWeb/js/ajustes/servicio/lista.js"></script>
+		<script type="text/javascript" src="/BasketBaseWeb/js/ajustes/club.js"></script>
 	</head>
 	<body>
 		<div id="header" class="col-xs-12">
@@ -46,12 +46,10 @@
 					<span class="tit-item-menu">Clubs</span>
 				</div>
 			</a>
-			<a href="/BasketBaseWeb/pages/calendario.php">
-				<div class="item-menu">
-					<span class="img-item-menu glyphicon glyphicon-calendar"></span>
-					<span class="tit-item-menu">Calendario</span>
-				</div>
-			</a>
+			<div class="item-menu item-active">
+				<span class="img-item-menu glyphicon glyphicon-calendar"></span>
+				<span class="tit-item-menu">Calendario</span>
+			</div>
 			<a href="/BasketBaseWeb/pages/servicios.php">
 				<div class="item-menu">
 					<span class="img-item-menu glyphicon glyphicon-briefcase"></span>
@@ -96,98 +94,49 @@
 		</div>
 		<div id="container" class="col-xs-12">
 			<?php
-				include "../../../php/config.php";
-				$login="";
-				if(isset($_COOKIE["user"])){
-					$login=$_COOKIE["user"];
-				}
-				else{
-					header("Location: http://localhost/errors/403.html");
-					exit();
-				}
+				include "../php/config.php";
 
-				$consulta="SELECT * FROM usuarios
-						   WHERE dni = '".$login."'
-						   OR 	 nick = '".$login."'
-						   OR 	 email = '".$login."'";
+				$qry="SELECT (SELECT nombre FROM equipos e WHERE e.codigo=local) as local, (SELECT nombre FROM equipos e WHERE e.codigo=visitante) as visitante, fecha, hora FROM partidos p WHERE fecha != '' AND STR_TO_DATE(fecha, '%d/%m/%Y')>DATE_ADD(CURRENT_DATE, INTERVAL -7 DAY) AND STR_TO_DATE(fecha, '%d/%m/%Y')<DATE_ADD(CURRENT_DATE, INTERVAL 7 DAY) ORDER BY fecha";
 
-				$row=mysqli_fetch_assoc(mysqli_query($con, $consulta));
+				$res=mysqli_query($con, $qry);
 
-				if($row!=null){
-					$consulta="SELECT * FROM provincias WHERE cp = ".$_GET['prov'];
+				$fechaAnt="";
 
-					$rowP=mysqli_fetch_assoc(mysqli_query($con, $consulta));
-
-					echo "<div class='breadcrumbs'><a href='../servicio.php'>/</a><span>".utf8_encode($rowP['nombre'])."</span></div>";
-
-					$res="";
-
-					if($row["admin"]!=1){
-						$sub="SELECT patrocinador FROM permiso_patro WHERE dni='".$row['dni']."'";
-						$consulta="SELECT * FROM patrocinadores WHERE provincia=".$_GET["prov"]." AND codigo IN (".$sub.")";
-
-						$res=mysqli_query($con, $consulta);
-					}
-					else{
-						$consulta="SELECT * FROM patrocinadores WHERE provincia=".$_GET["prov"];
-
-						$res=mysqli_query($con, $consulta);
-					}
-
-					if(mysqli_num_rows($res)>0){
-						echo '<input type="text" id="seeker" placeholder="Busca tu servicio..."/>';
-					}
-					else{
-						echo '<input type="text" id="seeker" placeholder="Busca tu servicio..." disabled/>';
-					}
-			?>
-				<table class="table table-responsive table-hover results">
-					<tbody>
-						
-					</tbody>
-				</table>
-				<div id="contServicios">
-					<?php
-						while($rowP=mysqli_fetch_array($res)){
-							$imagen="/img/user/noImage.jpg";
-							if($rowP["imagen"]!=null){
-								$imagen="/img/patros/".$rowP["imagen"];
-							}
-
-							echo 	"<a class='
-											servisItem 
-											col-xs-offset-2
-											col-sm-offset-1 
-											col-md-2
-											col-sm-3
-											col-xs-4'
-											href='/BasketBaseWeb/pages/ajustes/ofertas/lista.php?patro=".$rowP["codigo"]."'>
-												<img class='imgServi' src='/BasketBaseWeb".$imagen."'/>
-												<div class='nomServi'>".utf8_encode($rowP["nombre"])."</div>
-									</a>";
-						};
-						if($row["admin"]!=0){
-							echo "<a class='
-										servisItem
-										subir
-										col-xs-offset-2
-										col-sm-offset-1 
-										col-md-2
-										col-sm-3
-										col-xs-4'
-									href='/BasketBaseWeb/pages/ajustes/servicio/anadir.php?prov=".$_GET["prov"]."'>
-									<span class='fa fa-plus' aria-hidden='true'></span>
-								</a>";
+				while($row=mysqli_fetch_array($res)){
+					$fecha=$row["fecha"];
+					if($fecha!=$fechaAnt){
+						if($fechaAnt!=""){
+							echo "</tbody></table></div>";
 						}
-					?>
-				</div>
-			<?php
+						echo "<div><strong>".$fecha."</strong></div>";
+						echo "<div class='table-responsive'>
+								<table class='table table-hover'>
+									<thead>
+										<tr>
+											<th>Hora</th>
+											<th>Partido</th>
+											<th>Resultado</th>
+										</tr>
+									</thead>
+									<tbody>";
+					}
+
+					$hora="Desconocida";
+
+					if($row['hora']!="00:00:00"){
+						$hora=substr($row['hora'], 0, 5);
+					}
+
+					echo "<tr>
+							<td>".$hora."</td>
+							<td>".utf8_encode($row['local'])." - ".utf8_encode($row['visitante'])."</td>
+							<td>".$row['resultado']."</td>
+						  </tr>";
+
+					$fechaAnt=$fecha;
 				}
 
-				else{
-					header("Location: http://localhost/errors/500.html");
-					exit();
-				}
+				echo "</tbody></table></div>";
 			?>
 		</div>
 		<div id="foot" class="col-xs-12">

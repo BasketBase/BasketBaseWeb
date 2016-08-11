@@ -18,12 +18,12 @@
 
 		<!--Custom CSS -->
 		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/styles.css" />
-		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/ajustes/servicio/lista.css" />
+		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/ajustes/servicio.css" />
 
 		<!-- Custom JS -->
 		<script type="text/javascript" src="/BasketBaseWeb/js/BasketBaseWeb.js"></script>
 		<script type="text/javascript" src="/BasketBaseWeb/js/menu.js"></script>
-		<script type="text/javascript" src="/BasketBaseWeb/js/ajustes/servicio/lista.js"></script>
+		<script type="text/javascript" src="/BasketBaseWeb/js/ajustes/servicio.js"></script>
 	</head>
 	<body>
 		<div id="header" class="col-xs-12">
@@ -52,12 +52,10 @@
 					<span class="tit-item-menu">Calendario</span>
 				</div>
 			</a>
-			<a href="/BasketBaseWeb/pages/servicios.php">
-				<div class="item-menu">
-					<span class="img-item-menu glyphicon glyphicon-briefcase"></span>
-					<span class="tit-item-menu">Servicios Asociados</span>
-				</div>
-			</a>
+			<div class="item-menu item-active">
+				<span class="img-item-menu glyphicon glyphicon-briefcase"></span>
+				<span class="tit-item-menu">Servicios Asociados</span>
+			</div>
 			<a href="/BasketBaseWeb/pages/promos.php">
 				<div class="item-menu">
 					<span class="img-item-menu glyphicon glyphicon-picture"></span>
@@ -95,100 +93,32 @@
 			</div>
 		</div>
 		<div id="container" class="col-xs-12">
-			<?php
-				include "../../../php/config.php";
-				$login="";
-				if(isset($_COOKIE["user"])){
-					$login=$_COOKIE["user"];
-				}
-				else{
-					header("Location: http://localhost/errors/403.html");
-					exit();
-				}
+			<input type="text" id="seeker" placeholder="Busca la provincia que deseas..."/>
+			<table class="table table-responsive table-hover results">
+				<tbody>
+					
+				</tbody>
+			</table>
+			<div id="contProvs">
+				<?php
+					include "../php/config.php";
 
-				$consulta="SELECT * FROM usuarios
-						   WHERE dni = '".$login."'
-						   OR 	 nick = '".$login."'
-						   OR 	 email = '".$login."'";
+					$qry="SELECT * FROM provincias ORDER BY cp";
+					$res=mysqli_query($con, $qry) or die ($qry);
 
-				$row=mysqli_fetch_assoc(mysqli_query($con, $consulta));
-
-				if($row!=null){
-					$consulta="SELECT * FROM provincias WHERE cp = ".$_GET['prov'];
-
-					$rowP=mysqli_fetch_assoc(mysqli_query($con, $consulta));
-
-					echo "<div class='breadcrumbs'><a href='../servicio.php'>/</a><span>".utf8_encode($rowP['nombre'])."</span></div>";
-
-					$res="";
-
-					if($row["admin"]!=1){
-						$sub="SELECT patrocinador FROM permiso_patro WHERE dni='".$row['dni']."'";
-						$consulta="SELECT * FROM patrocinadores WHERE provincia=".$_GET["prov"]." AND codigo IN (".$sub.")";
-
-						$res=mysqli_query($con, $consulta);
-					}
-					else{
-						$consulta="SELECT * FROM patrocinadores WHERE provincia=".$_GET["prov"];
-
-						$res=mysqli_query($con, $consulta);
-					}
-
-					if(mysqli_num_rows($res)>0){
-						echo '<input type="text" id="seeker" placeholder="Busca tu servicio..."/>';
-					}
-					else{
-						echo '<input type="text" id="seeker" placeholder="Busca tu servicio..." disabled/>';
-					}
-			?>
-				<table class="table table-responsive table-hover results">
-					<tbody>
-						
-					</tbody>
-				</table>
-				<div id="contServicios">
-					<?php
-						while($rowP=mysqli_fetch_array($res)){
-							$imagen="/img/user/noImage.jpg";
-							if($rowP["imagen"]!=null){
-								$imagen="/img/patros/".$rowP["imagen"];
-							}
-
-							echo 	"<a class='
-											servisItem 
-											col-xs-offset-2
-											col-sm-offset-1 
-											col-md-2
-											col-sm-3
-											col-xs-4'
-											href='/BasketBaseWeb/pages/ajustes/ofertas/lista.php?patro=".$rowP["codigo"]."'>
-												<img class='imgServi' src='/BasketBaseWeb".$imagen."'/>
-												<div class='nomServi'>".utf8_encode($rowP["nombre"])."</div>
-									</a>";
-						};
-						if($row["admin"]!=0){
-							echo "<a class='
-										servisItem
-										subir
+					while($row=mysqli_fetch_array($res)){
+						echo 	"<div class='
+										provItem 
 										col-xs-offset-2
 										col-sm-offset-1 
 										col-md-2
 										col-sm-3
-										col-xs-4'
-									href='/BasketBaseWeb/pages/ajustes/servicio/anadir.php?prov=".$_GET["prov"]."'>
-									<span class='fa fa-plus' aria-hidden='true'></span>
-								</a>";
-						}
-					?>
-				</div>
-			<?php
-				}
-
-				else{
-					header("Location: http://localhost/errors/500.html");
-					exit();
-				}
-			?>
+										col-xs-4'>
+											<a href='/BasketBaseWeb/pages/servicios/lista.php?prov=".$row["cp"]."'>".utf8_encode($row["nombre"])."</a>
+								</div>";
+					};
+				?>
+			</div>
 		</div>
 		<div id="foot" class="col-xs-12">
 			<span class="cbb"><span style="font-size: 23px;float:left; margin-top: -5px; margin-right: 5px;">®</span> BASKET BASE</span>
