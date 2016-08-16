@@ -97,7 +97,7 @@
 				<div class="titleA col-xs-offset-1 col-xs-11">USUARIO</div>
 				<div class="elemA col-sm-4 col-xs-12"><a href="/BasketBaseWeb/pages/ajustes/usuario/editar.php">EDITAR DATOS</a></div>
 				<div class="elemA col-sm-4 col-xs-12"><a href="/BasketBaseWeb/pages/ajustes/usuario/contrasena.php">CAMBIAR CONTRASEÑA</a></div>
-				<div class="elemA col-sm-4 col-xs-12 cImg"><a>CAMBIAR IMAGEN</a></div>
+				<!--<div class="elemA col-sm-4 col-xs-12 cImg"><a>CAMBIAR IMAGEN</a></div>-->
 			</div>
 
 			<div class="tables permiso col-xs-12">
@@ -105,9 +105,9 @@
 				<div class="elemA perClub col-sm-4 col-xs-12"><a href="/BasketBaseWeb/pages/ajustes/club.php">CLUB</a></div>
 				<div class="elemA perPatro col-sm-4 col-xs-12"><a href="/BasketBaseWeb/pages/ajustes/servicio.php">SERVICIO</a></div>
 				<!--<div class="elemA perEve col-sm-4 col-xs-12"><a href="/BasketBaseWeb/pages/ajustes/evento.php">EVENTO</a></div>-->
-				<div class="elemA admin col-sm-4 col-xs-12"><a href="/BasketBaseWeb/pages/adminPabellon">PABELLONES</a></div>
-				<div class="elemA admin col-sm-4 col-xs-12"><a href="/BasketBaseWeb/pages/adminEntrena">ENTRENADORES</a></div>
-				<div class="elemA admin col-sm-4 col-xs-12"><a href="/BasketBaseWeb/pages/adminUsua">USUARIOS</a></div>
+				<!--<div class="elemA admin col-sm-4 col-xs-12"><a href="/BasketBaseWeb/pages/adminPabellon">PABELLONES</a></div>-->
+				<!--<div class="elemA admin col-sm-4 col-xs-12"><a href="/BasketBaseWeb/pages/adminEntrena">ENTRENADORES</a></div>-->
+				<!--<div class="elemA admin col-sm-4 col-xs-12"><a href="/BasketBaseWeb/pages/adminUsua">USUARIOS</a></div>-->
 			</div>
 
 			<div class="tables admin col-xs-12">
@@ -117,9 +117,9 @@
 		</div>
 		<div id="foot" class="col-xs-12">
 			<span class="cbb"><span style="font-size: 23px;float:left; margin-top: -5px; margin-right: 5px;">®</span> BASKET BASE</span>
-			<span class="item-foot">Contacto</span>
-			<span class="item-foot">Colabora</span>
-			<span class="item-foot">Aviso legal</span>
+			<span class="item-foot"><a href="/BasketBaseWeb/pages/contacto.php">Contacto</a></span>
+			<span class="item-foot"><a href="/BasketBaseWeb/pages/colabora.php">Colabora</a></span>
+			<!--<span class="item-foot"><a href="/BasketBaseWeb/pages/aviso.php">Aviso legal</a></span>-->
 			<a href="https://twitter.com/basketbaseapp" target="_blank"><span class="fa fa-twitter"></span></a>
 			<a href="https://facebook.com/basketbase" target="_blank"><span class="fa fa-facebook-official"></span></a>
 			<a href="https://www.youtube.com/channel/UCBXOEDHVG8lZKQxLU41Di3w" target="_blank"><span class="fa fa-youtube"></span></a>

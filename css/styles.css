@@ -180,13 +180,14 @@ a:hover{
 	color: #e62117 !important;
 }
 
-.item-foot{
+.item-foot a{
 	float: left;
 	margin: 12px;
 	cursor: pointer;
+	color: #FFF;
 }
 
-.item-foot:hover{
+.item-foot a:hover{
 	color: #3F51B5;
 }
 

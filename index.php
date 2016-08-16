@@ -56,7 +56,7 @@
 					<span class="tit-item-menu">Servicios Asociados</span>
 				</div>
 			</a>
-			<a href="/BasketBaseWeb/pages/promos.php">
+			<a href="/BasketBaseWeb/pages/promociones.php">
 				<div class="item-menu">
 					<span class="img-item-menu glyphicon glyphicon-picture"></span>
 					<span class="tit-item-menu">Promociones</span>
@@ -128,9 +128,9 @@
 		</div>
 		<div id="foot" class="col-xs-12">
 			<span class="cbb"><span style="font-size: 23px;float:left; margin-top: -5px; margin-right: 5px;">®</span> BASKET BASE</span>
-			<span class="item-foot">Contacto</span>
-			<span class="item-foot">Colabora</span>
-			<span class="item-foot">Aviso legal</span>
+			<span class="item-foot"><a href="/BasketBaseWeb/pages/contacto.php">Contacto</a></span>
+			<span class="item-foot"><a href="/BasketBaseWeb/pages/colabora.php">Colabora</a></span>
+			<!--<span class="item-foot"><a href="/BasketBaseWeb/pages/aviso.php">Aviso legal</a></span>-->
 			<a href="https://twitter.com/basketbaseapp" target="_blank"><span class="fa fa-twitter"></span></a>
 			<a href="https://facebook.com/basketbase" target="_blank"><span class="fa fa-facebook-official"></span></a>
 			<a href="https://www.youtube.com/channel/UCBXOEDHVG8lZKQxLU41Di3w" target="_blank"><span class="fa fa-youtube"></span></a>
