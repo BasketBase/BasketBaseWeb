@@ -18,12 +18,12 @@
 
 		<!--Custom CSS -->
 		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/styles.css" />
-		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/ajustes/noticias/anadir.css" />
+		<link rel="stylesheet" type="text/css" href="/BasketBaseWeb/css/ajustes/servicio/lista.css" />
 
 		<!-- Custom JS -->
 		<script type="text/javascript" src="/BasketBaseWeb/js/BasketBaseWeb.js"></script>
 		<script type="text/javascript" src="/BasketBaseWeb/js/menu.js"></script>
-		<script type="text/javascript" src="/BasketBaseWeb/js/ajustes/noticias/anadir.js"></script>
+		<script type="text/javascript" src="/BasketBaseWeb/js/ajustes/ofertas/lista.js"></script>
 	</head>
 	<body>
 		<div id="header" class="col-xs-12">
@@ -96,83 +96,33 @@
 		</div>
 		<div id="container" class="col-xs-12">
 			<?php
-				include "../../../php/config.php";
-				$login="";
-				if(isset($_COOKIE["user"])){
-					$login=$_COOKIE["user"];
-				}
-				else{
-					header("Location: http://localhost/errors/403.html");
-					exit();
-				}
+				include "../../php/config.php";
+				$consulta="SELECT * FROM provincias WHERE cp = ".$_GET['prov'];
 
-				$consulta="SELECT * FROM usuarios
-						   WHERE dni = '".$login."'
-						   OR 	 nick = '".$login."'
-						   OR 	 email = '".$login."'";
+				$rowP=mysqli_fetch_assoc(mysqli_query($con, $consulta));
 
-				$row=mysqli_fetch_assoc(mysqli_query($con, $consulta));
+				echo "<div class='breadcrumbs'><a href='../servicios.php'>/</a><span>".utf8_encode($rowP['nombre'])."</span></div>";
 
-				if($row!=null){
+				$consulta="SELECT mensaje, o.imagen as imagen FROM ofertas o JOIN patrocinadores p ON o.patrocinador=p.codigo WHERE p.provincia=".$_GET["prov"]." ORDER BY o.codigo DESC";
+
+				$res=mysqli_query($con, $consulta) or die ($consulta);
 			?>
-				<form role="form">
-					<div id="titulo" class="form-group col-md-6 col-xs-12">
-						<label class="titulo" for="titulo">
-							<span class="fa fa-user" style="margin-right: 10px"></span>
-							<span>* Título</span>
-							<span class="error titulo-lon">No puede quedar vacío.</span>
-						</label>
-						<input type="text" class="form-control" id="auth_titulo"
-						       placeholder="Introduce el título" maxlength="500">
-					</div>
-					<div id="subtitulo" class="form-group col-md-6 col-xs-12">
-						<label class="subtitulo" for="subtitulo">
-							<span class="fa fa-globe" style="margin-right: 10px"></span>
-							<span>Subtítulo</span>
-						</label>
-						<input type="text" class="form-control" id="auth_subtitulo"
-						       placeholder="Introduce el subtítulo" maxlength="1000">
-					</div>
-					<div id="imagen" class="form-group col-md-6 col-xs-12">
-						<label class="imagen" for="imagen">
-							<span class="fa fa-image" style="margin-right: 10px"></span>
-							<span>Imagen</span>
-						</label>
-						<input name="imagen" type="file" class="form-control" id="auth_imagen"/>
-					</div>
-					<div id="url" class="form-group col-md-6 col-xs-12">
-						<label class="url" for="url">
-							<span class="fa fa-street-view" style="margin-right: 10px"></span>
-							<span>Dirección Web</span>
-						</label>
-						<input type="text" class="form-control" id="auth_url"
-						       placeholder="Introduce la direccion web..." maxlength="200">
-					</div>
-					<div id="cuerpo" class="form-group col-xs-12">
-						<label class="cuerpo" for="cuerpo">
-							<span class="fa fa-facebook-official" style="margin-right: 10px"></span>
-							<span>Cuerpo</span>
-							<!--<div>
-								<button class='btn btn-default negrita'><span class="fa fa-bold"></span></button>
-								<button class='btn btn-default cursiva'><span class="fa fa-italic"></span></button>
-							</div>-->
-						</label>
-						<textarea type="text" class="form-control" id="auth_cuerpo"
-						       placeholder="Escribe el cuerpo aquí..." maxlength="10000" rows="6"></textarea>
-					</div>
-					<span class="error campo-error" style="color: red"></span>
-					<span class="error bd-error" style="color: red">Ha ocurrido un error en el servidor. Vuelva a intentarlo más tarde. Disculpe las molestias.</span>
-					<button type="submit" class="btn btn-warning addNotice" disabled>Añadir</button>
-					<button type="button" class="btn btn-info" onclick="location.href=history.back();">Volver</button>
-				</form>
-			<?php
-				}
-
-				else{
-					header("Location: http://localhost/errors/500.html");
-					exit();
-				}
-			?>
+			<div id="contServicios">
+				<?php
+					while($rowC=mysqli_fetch_array($res)){
+						echo 	"<div class='
+										servisItem 
+										col-xs-offset-2
+										col-sm-offset-1 
+										col-md-2
+										col-sm-3
+										col-xs-4'>
+											<img class='imgServi' src='/BasketBaseWeb/img/user/noImage.jpg'/>
+											<div class='nomServi'>".utf8_encode($rowC["mensaje"])."</div>
+								</div>";
+					};
+				?>
+			</div>
 		</div>
 		<div id="foot" class="col-xs-12">
 			<span class="cbb"><span style="font-size: 23px;float:left; margin-top: -5px; margin-right: 5px;">®</span> BASKET BASE</span>

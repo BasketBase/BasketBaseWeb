@@ -56,7 +56,7 @@
 				<span class="img-item-menu glyphicon glyphicon-briefcase"></span>
 				<span class="tit-item-menu">Servicios Asociados</span>
 			</div>
-			<a href="/BasketBaseWeb/pages/promos.php">
+			<a href="/BasketBaseWeb/pages/promociones.php">
 				<div class="item-menu">
 					<span class="img-item-menu glyphicon glyphicon-picture"></span>
 					<span class="tit-item-menu">Promociones</span>
